@@ -1,5 +1,5 @@
 {
-    "name": "straylightagency/daedelus-framework",
+    "name": "daedelus/framework",
     "description": "The Majestic Framework for WordPress",
     "type": "framework",
     "minimum-stability": "dev",
