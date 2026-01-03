@@ -1,6 +1,6 @@
 <?php
 
-namespace Daedelus\Foundation\Console\Commands\Artisan;
+namespace Daedelus\Framework\Console\Commands\Artisan;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;

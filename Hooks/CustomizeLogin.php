@@ -1,6 +1,6 @@
 <?php
 
-namespace Daedelus\Foundation\Hooks;
+namespace Daedelus\Framework\Hooks;
 
 use Daedelus\Support\Actions;
 use Daedelus\Support\Filters;

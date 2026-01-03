@@ -1,5 +1,5 @@
 <?php
-namespace Daedelus\Foundation\Console\Commands\Taxonomy;
+namespace Daedelus\Framework\Console\Commands\Taxonomy;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Attribute\AsCommand;

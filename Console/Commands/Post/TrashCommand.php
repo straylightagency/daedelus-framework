@@ -1,5 +1,5 @@
 <?php
-namespace Daedelus\Foundation\Console\Commands\Post;
+namespace Daedelus\Framework\Console\Commands\Post;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Attribute\AsCommand;

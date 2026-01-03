@@ -1,6 +1,6 @@
 <?php
 
-namespace Daedelus\Foundation;
+namespace Daedelus\Framework;
 
 use Exception;
 use Illuminate\Foundation\MixManifestNotFoundException;

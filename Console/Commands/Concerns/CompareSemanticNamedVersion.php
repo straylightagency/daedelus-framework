@@ -1,5 +1,5 @@
 <?php
-namespace Daedelus\Foundation\Console\Commands\Concerns;
+namespace Daedelus\Framework\Console\Commands\Concerns;
 
 use Composer\Semver\Comparator;
 use Composer\Semver\Semver;

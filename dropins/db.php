@@ -1,6 +1,6 @@
 <?php
 global $wpdb;
 
-use Daedelus\Foundation\Database\BridgeDatabase;
+use Daedelus\Framework\Database\BridgeDatabase;
 
 $wpdb = new BridgeDatabase;

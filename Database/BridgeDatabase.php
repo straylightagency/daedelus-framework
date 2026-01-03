@@ -1,6 +1,6 @@
 <?php
 
-namespace Daedelus\Foundation\Database;
+namespace Daedelus\Framework\Database;
 
 use Daedelus\Support\Filters;
 use Exception;

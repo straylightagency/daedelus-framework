@@ -1,5 +1,5 @@
 <?php
-namespace Daedelus\Foundation\Console\Commands\Term;
+namespace Daedelus\Framework\Console\Commands\Term;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Attribute\AsCommand;

@@ -1,5 +1,5 @@
 <?php
-namespace Daedelus\Foundation\Console\Commands\Menu;
+namespace Daedelus\Framework\Console\Commands\Menu;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Attribute\AsCommand;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Daedelus\Foundation\Bootstrap;
+namespace Daedelus\Framework\Bootstrap;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Foundation\Application;

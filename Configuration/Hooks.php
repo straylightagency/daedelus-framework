@@ -1,6 +1,6 @@
 <?php
 
-namespace Daedelus\Foundation\Configuration;
+namespace Daedelus\Framework\Configuration;
 
 /**
  *
@@ -22,9 +22,9 @@ class Hooks
 	public static function default():static
 	{
 		return new static( [
-			\Daedelus\Foundation\Hooks\SetupApplication::class,
-			\Daedelus\Foundation\Hooks\ConfigMails::class,
-			\Daedelus\Foundation\Hooks\CustomizeAdmin::class,
+			\Daedelus\Framework\Hooks\SetupApplication::class,
+			\Daedelus\Framework\Hooks\ConfigMails::class,
+			\Daedelus\Framework\Hooks\CustomizeAdmin::class,
 		] );
 	}
 

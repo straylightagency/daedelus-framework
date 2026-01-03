@@ -1,6 +1,6 @@
 <?php
 
-namespace Daedelus\Foundation\Console\Commands\Concerns\Utils;
+namespace Daedelus\Framework\Console\Commands\Concerns\Utils;
 
 use Plugin_Upgrader;
 use WP_Error;

@@ -1,5 +1,5 @@
 <?php
-namespace Daedelus\Foundation\Console\Commands\Db;
+namespace Daedelus\Framework\Console\Commands\Db;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Attribute\AsCommand;

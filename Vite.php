@@ -1,6 +1,6 @@
 <?php
 
-namespace Daedelus\Foundation;
+namespace Daedelus\Framework;
 
 use Illuminate\Foundation\ViteException;
 use Illuminate\Support\Arr;

@@ -1,7 +1,7 @@
 <?php
-namespace Daedelus\Foundation;
+namespace Daedelus\Framework;
 
-use Daedelus\Foundation\Hooks\Hook;
+use Daedelus\Framework\Hooks\Hook;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Foundation\Application;
 

@@ -1,17 +1,17 @@
 <?php
 
-namespace Daedelus\Foundation\Console;
+namespace Daedelus\Framework\Console;
 
-use Daedelus\Foundation\Bootstrap\BootWordPress;
+use Daedelus\Framework\Bootstrap\BootWordPress;
 use Illuminate\Console\Application as Artisan;
 use Illuminate\Console\Command;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Bootstrap\BootProviders;
-use Daedelus\Foundation\Bootstrap\HandleExceptions;
-use Daedelus\Foundation\Bootstrap\LoadConfiguration;
+use Daedelus\Framework\Bootstrap\HandleExceptions;
+use Daedelus\Framework\Bootstrap\LoadConfiguration;
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
 use Illuminate\Foundation\Bootstrap\RegisterFacades;
-use Daedelus\Foundation\Bootstrap\RegisterProviders;
+use Daedelus\Framework\Bootstrap\RegisterProviders;
 use Illuminate\Foundation\Bootstrap\SetRequestForConsole;
 use Illuminate\Foundation\Console\Kernel as BaseKernel;
 use Illuminate\Support\Str;

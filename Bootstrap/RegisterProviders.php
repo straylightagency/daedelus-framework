@@ -1,6 +1,6 @@
 <?php
 
-namespace Daedelus\Foundation\Bootstrap;
+namespace Daedelus\Framework\Bootstrap;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Foundation\Application;
@@ -13,9 +13,9 @@ class RegisterProviders extends BaseRegisterProviders
 		\Illuminate\Auth\AuthServiceProvider::class,
 		\Illuminate\Broadcasting\BroadcastServiceProvider::class,
 		\Illuminate\Bus\BusServiceProvider::class,
-		\Daedelus\Foundation\Cache\CacheServiceProvider::class,
-		\Daedelus\Foundation\Providers\FoundationServiceProvider::class,
-		\Daedelus\Foundation\Providers\ConsoleSupportServiceProvider::class,
+		\Daedelus\Framework\Cache\CacheServiceProvider::class,
+		\Daedelus\Framework\Providers\FoundationServiceProvider::class,
+		\Daedelus\Framework\Providers\ConsoleSupportServiceProvider::class,
 		\Illuminate\Cookie\CookieServiceProvider::class,
 		\Illuminate\Database\DatabaseServiceProvider::class,
 		\Illuminate\Encryption\EncryptionServiceProvider::class,
@@ -32,7 +32,7 @@ class RegisterProviders extends BaseRegisterProviders
 		\Illuminate\Session\SessionServiceProvider::class,
 		\Illuminate\Translation\TranslationServiceProvider::class,
 		\Illuminate\Validation\ValidationServiceProvider::class,
-		\Daedelus\Foundation\View\ViewServiceProvider::class,
+		\Daedelus\Framework\View\ViewServiceProvider::class,
 	];
 
 	/**

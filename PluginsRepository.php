@@ -1,6 +1,6 @@
 <?php
 
-namespace Daedelus\Foundation;
+namespace Daedelus\Framework;
 
 use Daedelus\Support\Actions;
 use Daedelus\Support\Filters;

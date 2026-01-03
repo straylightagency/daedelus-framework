@@ -1,8 +1,8 @@
 <?php
 
-namespace Daedelus\Foundation\Console\Commands\Concerns;
+namespace Daedelus\Framework\Console\Commands\Concerns;
 
-use Daedelus\Foundation\Console\Commands\Concerns\Utils\UpgraderSkin;
+use Daedelus\Framework\Console\Commands\Concerns\Utils\UpgraderSkin;
 use Plugin_Upgrader;
 use ReflectionException;
 

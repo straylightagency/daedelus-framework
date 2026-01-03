@@ -1,6 +1,6 @@
 <?php
 
-namespace Daedelus\Foundation\Providers;
+namespace Daedelus\Framework\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

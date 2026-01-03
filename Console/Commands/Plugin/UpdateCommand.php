@@ -1,13 +1,13 @@
 <?php
-namespace Daedelus\Foundation\Console\Commands\Plugin;
+namespace Daedelus\Framework\Console\Commands\Plugin;
 
 use Composer\Semver\Comparator;
 use Composer\Semver\VersionParser;
-use Daedelus\Foundation\Console\Commands\Concerns\CanCallUpgrader;
-use Daedelus\Foundation\Console\Commands\Concerns\CanRequestWpOrg;
-use Daedelus\Foundation\Console\Commands\Concerns\CompareSemanticNamedVersion;
-use Daedelus\Foundation\Console\Commands\Concerns\ManagePlugins;
-use Daedelus\Foundation\Console\Commands\Concerns\Utils\HttpCacheManager;
+use Daedelus\Framework\Console\Commands\Concerns\CanCallUpgrader;
+use Daedelus\Framework\Console\Commands\Concerns\CanRequestWpOrg;
+use Daedelus\Framework\Console\Commands\Concerns\CompareSemanticNamedVersion;
+use Daedelus\Framework\Console\Commands\Concerns\ManagePlugins;
+use Daedelus\Framework\Console\Commands\Concerns\Utils\HttpCacheManager;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Daedelus\Foundation\Bootstrap;
+namespace Daedelus\Framework\Bootstrap;
 
 use Illuminate\Foundation\Bootstrap\HandleExceptions as BaseHandleExceptions;
 use Throwable;

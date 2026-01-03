@@ -1,6 +1,6 @@
 <?php
 
-namespace Daedelus\Foundation\View;
+namespace Daedelus\Framework\View;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\View\ViewServiceProvider as BaseServiceProvider;

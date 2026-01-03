@@ -1,6 +1,6 @@
 <?php
 
-namespace Daedelus\Foundation\Database\seeders;
+namespace Daedelus\Framework\Database\seeders;
 
 use Illuminate\Database\Seeder;
 

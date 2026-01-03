@@ -1,5 +1,5 @@
 <?php
-namespace Daedelus\Foundation\Console\Commands\Option;
+namespace Daedelus\Framework\Console\Commands\Option;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Daedelus\Foundation\Console\Commands\Concerns;
+namespace Daedelus\Framework\Console\Commands\Concerns;
 
 use WP_Upgrader;
 

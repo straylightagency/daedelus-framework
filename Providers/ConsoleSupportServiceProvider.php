@@ -1,6 +1,6 @@
 <?php
 
-namespace Daedelus\Foundation\Providers;
+namespace Daedelus\Framework\Providers;
 
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Database\MigrationServiceProvider;

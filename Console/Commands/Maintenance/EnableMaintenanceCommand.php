@@ -1,8 +1,8 @@
 <?php
-namespace Daedelus\Foundation\Console\Commands\Maintenance;
+namespace Daedelus\Framework\Console\Commands\Maintenance;
 
-use Daedelus\Foundation\Console\Commands\Concerns\GetMaintenanceStatus;
-use Daedelus\Foundation\Console\Commands\Concerns\ManageMaintenanceMode;
+use Daedelus\Framework\Console\Commands\Concerns\GetMaintenanceStatus;
+use Daedelus\Framework\Console\Commands\Concerns\ManageMaintenanceMode;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Filesystem\Filesystem;

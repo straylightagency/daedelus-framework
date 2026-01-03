@@ -1,5 +1,5 @@
 <?php
-namespace Daedelus\Foundation\Configuration;
+namespace Daedelus\Framework\Configuration;
 
 use RuntimeException;
 

@@ -1,5 +1,5 @@
 <?php
-namespace Daedelus\Foundation\Console\Commands\Transient;
+namespace Daedelus\Framework\Console\Commands\Transient;
 
 use Illuminate\Console\Command;
 use Psr\SimpleCache\InvalidArgumentException;

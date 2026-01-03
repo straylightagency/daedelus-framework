@@ -1,6 +1,6 @@
 <?php
 
-namespace Daedelus\Foundation\Routing;
+namespace Daedelus\Framework\Routing;
 
 use Illuminate\Routing\RoutingServiceProvider as BaseRoutingServiceProvider;
 

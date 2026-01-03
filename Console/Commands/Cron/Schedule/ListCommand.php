@@ -1,5 +1,5 @@
 <?php
-namespace Daedelus\Foundation\Console\Commands\Cron\Schedule;
+namespace Daedelus\Framework\Console\Commands\Cron\Schedule;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Attribute\AsCommand;

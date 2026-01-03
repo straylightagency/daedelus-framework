@@ -1,8 +1,8 @@
 <?php
 
-namespace Daedelus\Foundation\Console\Commands\Concerns;
+namespace Daedelus\Framework\Console\Commands\Concerns;
 
-use Daedelus\Foundation\Console\Commands\Concerns\Utils\DestructivePluginUpgrader;
+use Daedelus\Framework\Console\Commands\Concerns\Utils\DestructivePluginUpgrader;
 use Illuminate\Support\Collection;
 use Plugin_Upgrader;
 use ReflectionException;

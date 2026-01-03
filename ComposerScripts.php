@@ -1,5 +1,5 @@
 <?php
-namespace Daedelus\Foundation;
+namespace Daedelus\Framework;
 
 use PDO;
 use Env\Env;

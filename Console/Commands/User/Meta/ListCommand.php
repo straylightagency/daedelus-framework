@@ -1,5 +1,5 @@
 <?php
-namespace Daedelus\Foundation\Console\Commands\User\Meta;
+namespace Daedelus\Framework\Console\Commands\User\Meta;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Attribute\AsCommand;

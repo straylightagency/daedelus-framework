@@ -1,14 +1,14 @@
 <?php
-namespace Daedelus\Foundation;
+namespace Daedelus\Framework;
 
 use Closure;
-use Daedelus\Foundation\Bootstrap\BootWordPress;
-use Daedelus\Foundation\Configuration\ApplicationBuilder;
-use Daedelus\Foundation\Configuration\Configure;
-use Daedelus\Foundation\Routing\Middleware\WordPress404;
-use Daedelus\Foundation\Routing\Middleware\WordPressContent;
-use Daedelus\Foundation\Routing\Middleware\WordPressHeaders;
-use Daedelus\Foundation\Routing\RoutingServiceProvider;
+use Daedelus\Framework\Bootstrap\BootWordPress;
+use Daedelus\Framework\Configuration\ApplicationBuilder;
+use Daedelus\Framework\Configuration\Configure;
+use Daedelus\Framework\Routing\Middleware\WordPress404;
+use Daedelus\Framework\Routing\Middleware\WordPressContent;
+use Daedelus\Framework\Routing\Middleware\WordPressHeaders;
+use Daedelus\Framework\Routing\RoutingServiceProvider;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Console\Kernel as ConsoleKernelContract;
 use Illuminate\Contracts\Container\BindingResolutionException;

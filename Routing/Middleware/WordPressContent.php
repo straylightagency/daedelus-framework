@@ -1,6 +1,6 @@
 <?php
 
-namespace Daedelus\Foundation\Routing\Middleware;
+namespace Daedelus\Framework\Routing\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;

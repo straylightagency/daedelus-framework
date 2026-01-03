@@ -1,5 +1,5 @@
 <?php
-namespace Daedelus\Foundation\Console\Commands\Cache;
+namespace Daedelus\Framework\Console\Commands\Cache;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Attribute\AsCommand;

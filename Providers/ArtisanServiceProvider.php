@@ -1,8 +1,8 @@
 <?php
 
-namespace Daedelus\Foundation\Providers;
+namespace Daedelus\Framework\Providers;
 
-use Daedelus\Foundation\Console\Commands\Artisan\LangPublishCommand;
+use Daedelus\Framework\Console\Commands\Artisan\LangPublishCommand;
 use Illuminate\Auth\Console\ClearResetsCommand;
 use Illuminate\Cache\Console\CacheTableCommand;
 use Illuminate\Cache\Console\ClearCommand as CacheClearCommand;

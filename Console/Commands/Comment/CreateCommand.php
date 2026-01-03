@@ -1,5 +1,5 @@
 <?php
-namespace Daedelus\Foundation\Console\Commands\Comment;
+namespace Daedelus\Framework\Console\Commands\Comment;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;

@@ -1,9 +1,9 @@
 <?php
 
 use App\Models\User;
-use Daedelus\Foundation\Cache\WordPressProxyCache;
-use Daedelus\Foundation\Mix;
-use Daedelus\Foundation\Vite;
+use Daedelus\Framework\Cache\WordPressProxyCache;
+use Daedelus\Framework\Mix;
+use Daedelus\Framework\Vite;
 use Daedelus\Support\Filters;
 use Daedelus\Theme\Menus\Menu;
 use Daedelus\Theme\Menus\MenuManager;

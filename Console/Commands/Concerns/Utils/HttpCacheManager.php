@@ -1,6 +1,6 @@
 <?php
 
-namespace Daedelus\Foundation\Console\Commands\Concerns\Utils;
+namespace Daedelus\Framework\Console\Commands\Concerns\Utils;
 
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Support\Facades\Cache;

@@ -1,15 +1,15 @@
 <?php
-namespace Daedelus\Foundation\Http;
+namespace Daedelus\Framework\Http;
 
 use Daedelus\Support\Actions;
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Daedelus\Foundation\Bootstrap\HandleExceptions;
-use Daedelus\Foundation\Bootstrap\LoadConfiguration;
-use Daedelus\Foundation\Bootstrap\RegisterFacades;
+use Daedelus\Framework\Bootstrap\HandleExceptions;
+use Daedelus\Framework\Bootstrap\LoadConfiguration;
+use Daedelus\Framework\Bootstrap\RegisterFacades;
 use Illuminate\Foundation\Bootstrap\BootProviders;
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
-use Daedelus\Foundation\Bootstrap\RegisterProviders;
-use Daedelus\Foundation\Bootstrap\BootWordPress;
+use Daedelus\Framework\Bootstrap\RegisterProviders;
+use Daedelus\Framework\Bootstrap\BootWordPress;
 use Illuminate\Foundation\Http\Events\RequestHandled;
 use Illuminate\Http\Request;
 use Illuminate\Pipeline\Pipeline;
@@ -36,7 +36,7 @@ class Kernel extends BaseKernel
     /**
      * The router instance.
      *
-     * @var \Daedelus\Foundation\Routing\Router
+     * @var \Daedelus\Framework\Routing\Router
      */
     protected $router;
 
@@ -181,7 +181,7 @@ class Kernel extends BaseKernel
      */
     protected function matchRoute(Request $request): Route
     {
-        /** @var \Daedelus\Foundation\Routing\Router $router */
+        /** @var \Daedelus\Framework\Routing\Router $router */
         $router = $this->app->make( Router::class );
 
         return $router->getRoutes()->match( $request );

@@ -1,6 +1,6 @@
 <?php
 
-namespace Daedelus\Foundation\Cache;
+namespace Daedelus\Framework\Cache;
 
 use Illuminate\Cache\Repository;
 use Psr\SimpleCache\InvalidArgumentException;

@@ -1,5 +1,5 @@
 <?php
-namespace Daedelus\Foundation\Console\Commands\Cron\Event;
+namespace Daedelus\Framework\Console\Commands\Cron\Event;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Attribute\AsCommand;

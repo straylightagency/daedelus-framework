@@ -1,6 +1,6 @@
 <?php
 
-namespace Daedelus\Foundation\Bootstrap;
+namespace Daedelus\Framework\Bootstrap;
 
 use Symfony\Component\Finder\Finder;
 use Illuminate\Foundation\Bootstrap\LoadConfiguration as BaseLoadConfiguration;

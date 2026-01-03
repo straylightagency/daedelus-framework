@@ -1,7 +1,7 @@
 <?php
-namespace Daedelus\Foundation\Bootstrap;
+namespace Daedelus\Framework\Bootstrap;
 
-use Daedelus\Foundation\Configuration\Configure;
+use Daedelus\Framework\Configuration\Configure;
 use Illuminate\Contracts\Foundation\Application;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;

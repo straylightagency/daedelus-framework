@@ -1,7 +1,7 @@
 <?php
-namespace Daedelus\Foundation\Console\Commands\Plugin;
+namespace Daedelus\Framework\Console\Commands\Plugin;
 
-use Daedelus\Foundation\Console\Commands\Concerns\ManagePlugins;
+use Daedelus\Framework\Console\Commands\Concerns\ManagePlugins;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Attribute\AsCommand;
 

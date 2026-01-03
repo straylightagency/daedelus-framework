@@ -1,5 +1,5 @@
 <?php
-namespace Daedelus\Foundation\Console\Commands\Wp;
+namespace Daedelus\Framework\Console\Commands\Wp;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Attribute\AsCommand;

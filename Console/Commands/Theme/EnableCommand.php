@@ -1,7 +1,7 @@
 <?php
-namespace Daedelus\Foundation\Console\Commands\Theme;
+namespace Daedelus\Framework\Console\Commands\Theme;
 
-use Daedelus\Foundation\Console\Commands\Concerns\ManageThemes;
+use Daedelus\Framework\Console\Commands\Concerns\ManageThemes;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Symfony\Component\Console\Attribute\AsCommand;

@@ -1,12 +1,12 @@
 <?php
-namespace Daedelus\Foundation\Configuration;
+namespace Daedelus\Framework\Configuration;
 
 use Closure;
-use Daedelus\Foundation\Application;
-use Daedelus\Foundation\Bootstrap\RegisterFacades;
-use Daedelus\Foundation\HooksRepository;
-use Daedelus\Foundation\Mix;
-use Daedelus\Foundation\Vite;
+use Daedelus\Framework\Application;
+use Daedelus\Framework\Bootstrap\RegisterFacades;
+use Daedelus\Framework\HooksRepository;
+use Daedelus\Framework\Mix;
+use Daedelus\Framework\Vite;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Illuminate\Foundation\Configuration\ApplicationBuilder as BaseApplicationBuilder;
@@ -31,12 +31,12 @@ class ApplicationBuilder extends BaseApplicationBuilder
     {
         $this->app->singletonIf(
             \Illuminate\Contracts\Http\Kernel::class,
-            \Daedelus\Foundation\Http\Kernel::class
+            \Daedelus\Framework\Http\Kernel::class
         );
 
         $this->app->singletonIf(
             \Illuminate\Contracts\Console\Kernel::class,
-            \Daedelus\Foundation\Console\Kernel::class
+            \Daedelus\Framework\Console\Kernel::class
         );
 
         return $this;

@@ -1,5 +1,5 @@
 <?php
-namespace Daedelus\Foundation\Hooks;
+namespace Daedelus\Framework\Hooks;
 
 use Closure;
 use Daedelus\Support\Filters;
