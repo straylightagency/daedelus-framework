@@ -1,0 +1,26 @@
+<?php
+namespace Daedelus\Foundation\Console\Commands\User;
+
+use Illuminate\Console\Command;
+use Symfony\Component\Console\Attribute\AsCommand;
+
+/**
+ *
+ */
+#[AsCommand(name: 'user:add-role')]
+class AddRoleCommand extends Command
+{
+	/** @var string */
+	protected $signature = 'user:add-role';
+
+	/** @var string */
+	protected $description = '';
+
+	/**
+	 * @return void
+	 */
+	public function handle():void
+	{
+
+	}
+}

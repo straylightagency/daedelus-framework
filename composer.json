@@ -1,0 +1,25 @@
+{
+    "name": "straylightagency/daedelus-framework",
+    "description": "The Majestic Framework for WordPress",
+    "type": "framework",
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=8.3"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Anthony Pauwels",
+            "email": "anthony@straylightagency.be",
+            "homepage": "https://straylightagency.be/"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Daedelus\\": "/"
+        },
+        "files": [
+            "/helpers.php"
+        ]
+    }
+}
