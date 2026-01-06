@@ -16,7 +16,9 @@ class DeleteCommand extends Command
 	 *
 	 * @var string
 	 */
-	protected $signature = 'transient:delete {key?} {--all} {--network}';
+	protected $signature = 'transient:delete {key?} 
+	                        {--all} 
+	                        {--network}';
 
 	/**
 	 * The console command description.

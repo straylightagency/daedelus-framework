@@ -14,7 +14,9 @@ class ListCommand extends Command
 	use ManagePlugins;
 
 	/** @var string */
-	protected $signature = 'plugin:list {--fields=name,status,update,version,update_version,auto_update} {--skip-update-check}';
+	protected $signature = 'plugin:list 
+	                        {--fields=name,status,update,version,update_version,auto_update} 
+	                        {--skip-update-check}';
 
 	/** @var string */
 	protected $description = 'Gets a list of plugins.';

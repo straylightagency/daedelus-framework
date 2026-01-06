@@ -11,7 +11,9 @@ use Symfony\Component\Console\Attribute\AsCommand;
 class AddCommand extends Command
 {
 	/** @var string */
-	protected $signature = 'option:add {key} {value} {--autoload=} {--format=}';
+	protected $signature = 'option:add {key} {value} 
+	                        {--autoload=} 
+	                        {--format=}';
 
 	/** @var string */
 	protected $description = 'Adds a new option value.';

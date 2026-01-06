@@ -30,7 +30,7 @@ class InstallCommand extends Command
 	public function handle():void
 	{
         $this->call('migrate', [
-            '--path' => 'workbench/majestic/src/Daedelus/Foundation/Database/migrations',
+            '--path' => 'vendor/daedelus/framework/Database/migrations',
         ]);
 	}
 }

@@ -36,7 +36,7 @@ class Kernel extends BaseKernel
 		SetRequestForConsole::class,
 		RegisterProviders::class,
 		BootProviders::class,
-//		BootWordPress::class
+		BootWordPress::class
 	];
 
 	/**

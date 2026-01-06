@@ -11,7 +11,9 @@ use Symfony\Component\Console\Attribute\AsCommand;
 class UpdateCommand extends Command
 {
 	/** @var string */
-	protected $signature = 'option:update {key} {value} {--autoload=} {--format=}';
+	protected $signature = 'option:update {key} {value} 
+	                        {--autoload=} 
+	                        {--format=}';
 
 	/** @var string */
 	protected $description = 'Updates an option value.';

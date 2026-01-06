@@ -22,7 +22,14 @@ class InstallCommand extends Command
 	use ManagePlugins, CanCallUpgrader;
 
 	/** @var string */
-	protected $signature = 'plugin:install {plugins?*} {--use=} {--force} {--minor} {--patch} {--dry-run} {--activate} {--activate-network}';
+	protected $signature = 'plugin:install {plugins?*} 
+	                        {--use=} 
+	                        {--force} 
+	                        {--minor} 
+	                        {--patch} 
+	                        {--dry-run} 
+	                        {--activate} 
+	                        {--activate-network}';
 
 	/** @var string */
 	protected $description = 'Installs one or more plugins.';

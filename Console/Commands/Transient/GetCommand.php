@@ -18,7 +18,8 @@ class GetCommand extends Command
 	 *
 	 * @var string
 	 */
-	protected $signature = 'transient:get {key} {--network}';
+	protected $signature = 'transient:get {key} 
+	                        {--network}';
 
 	/**
 	 * The console command description.

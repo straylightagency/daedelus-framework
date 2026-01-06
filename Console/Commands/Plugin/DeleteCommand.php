@@ -15,7 +15,8 @@ class DeleteCommand extends Command
 	use ManagePlugins;
 
 	/** @var string */
-	protected $signature = 'plugin:delete {plugins?*} {--all}';
+	protected $signature = 'plugin:delete {plugins?*} 
+	                        {--all}';
 
 	/** @var string */
 	protected $description = 'Deletes plugin files without deactivating or uninstalling.';

@@ -33,7 +33,7 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 class Application extends BaseApplication
 {
 	/**
-	 * The Majestic framework version.
+	 * The Daedelus framework version.
 	 *
 	 * @var string
 	 */
@@ -395,6 +395,6 @@ class Application extends BaseApplication
 	 */
 	public function version(): string
 	{
-		return parent::VERSION . ' (Majestic ' . static::VERSION . ') ';
+		return parent::VERSION . ' (Daedelus ' . static::VERSION . ') ';
 	}
 }

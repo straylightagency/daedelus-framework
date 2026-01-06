@@ -14,7 +14,9 @@ class DisableAutoUpdatesCommand extends Command
 	use ManagePlugins;
 
 	/** @var string */
-	protected $signature = 'plugin:disable-auto-updates {plugins?*} {--all} {--enabled-only}';
+	protected $signature = 'plugin:disable-auto-updates {plugins?*} 
+	                        {--all} 
+	                        {--enabled-only}';
 
 	/** @var string */
 	protected $description = 'Disables the auto-updates for a plugin.';

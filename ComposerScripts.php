@@ -14,7 +14,7 @@ use Composer\IO\IOInterface;
  *
  *
  * @author Anthony Pauwels <anthony@straylightagency.be>
- * @package Majestic
+ * @package Daedelus
  */
 class ComposerScripts
 {
@@ -150,7 +150,7 @@ class ComposerScripts
     public static function setupEnv():void
     {
         $defaults = [
-            'WP_TITLE' => env('WP_TITLE') ?? 'Majestic',
+            'WP_TITLE' => env('WP_TITLE') ?? 'Daedelus',
             'WP_HOME' => env('WP_HOME') ?? 'http://majestic.local.host/',
             'WP_USER' => env('WP_USER') ?? 'private',
             'WP_PASSWORD' => str_replace( ['"', "'"] , '', env('WP_PASSWORD') ?? self::generateRandomString( 16, false ) ),

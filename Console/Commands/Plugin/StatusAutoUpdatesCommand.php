@@ -14,7 +14,10 @@ class StatusAutoUpdatesCommand extends Command
 	use ManagePlugins;
 
 	/** @var string */
-	protected $signature = 'plugin:status-auto-updates {plugins?*} {--all} {--enabled-only} {--disabled-only}';
+	protected $signature = 'plugin:status-auto-updates {plugins?*} 
+	                        {--all}
+	                        {--enabled-only}
+	                        {--disabled-only}';
 
 	/** @var string */
 	protected $description = 'Shows the status of auto-updates for a plugin.';

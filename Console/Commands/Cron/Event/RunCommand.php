@@ -14,7 +14,10 @@ class RunCommand extends Command
 	use ManageCronEvents;
 
 	/** @var string */
-	protected $signature = 'cron:event:run {hooks*} {--due-now} {--exclude=} {--all}';
+	protected $signature = 'cron:event:run {hooks*} 
+	                        {--due-now} 
+	                        {--exclude=} 
+	                        {--all}';
 
 	/** @var string */
 	protected $description = 'Runs the next scheduled cron event for the given hook.';

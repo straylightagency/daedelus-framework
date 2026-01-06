@@ -7,7 +7,7 @@ use RuntimeException;
  *
  *
  * @author Anthony Pauwels <anthony@straylightagency.be>
- * @package Majestic
+ * @package Daedelus
  */
 class Configure
 {

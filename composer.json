@@ -1,6 +1,6 @@
 {
     "name": "daedelus/framework",
-    "description": "The Majestic Framework for WordPress",
+    "description": "The Daedelus Framework for WordPress",
     "type": "framework",
     "minimum-stability": "dev",
     "require": {

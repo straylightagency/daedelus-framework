@@ -12,7 +12,14 @@ use Symfony\Component\Console\Attribute\AsCommand;
 class ListCommand extends Command
 {
 	/** @var string */
-	protected $signature = 'option:list {--search=} {--exclude=} {--fields=} {--transients} {--autoload=} {--orderby=} {--order=}';
+	protected $signature = 'option:list 
+	                        {--search=} 
+	                        {--exclude=} 
+	                        {--fields=} 
+	                        {--transients} 
+	                        {--autoload=} 
+	                        {--orderby=} 
+	                        {--order=}';
 
 	/** @var string */
 	protected $description = 'Lists options and their values.';

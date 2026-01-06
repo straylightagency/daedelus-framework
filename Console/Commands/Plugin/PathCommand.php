@@ -14,7 +14,8 @@ class PathCommand extends Command
 	use ManagePlugins;
 
 	/** @var string */
-	protected $signature = 'plugin:path {plugin?} {--dir}';
+	protected $signature = 'plugin:path {plugin?} 
+	                        {--dir}';
 
 	/** @var string */
 	protected $description = 'Gets the path to a plugin or to the plugin directory.';

@@ -14,7 +14,9 @@ class EnableAutoUpdatesCommand extends Command
 	use ManagePlugins;
 
 	/** @var string */
-	protected $signature = 'plugin:enable-auto-updates {plugins?*} {--all} {--disabled-only}';
+	protected $signature = 'plugin:enable-auto-updates {plugins?*} 
+	                        {--all} 
+	                        {--disabled-only}';
 
 	/** @var string */
 	protected $description = 'Enables the auto-updates for a plugin.';

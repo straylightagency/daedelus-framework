@@ -14,7 +14,8 @@ class IsActivateCommand extends Command
 	use ManagePlugins;
 
 	/** @var string */
-	protected $signature = 'plugin:is-active {plugin} {--network}';
+	protected $signature = 'plugin:is-active {plugin}
+	                        {--network}';
 
 	/** @var string */
 	protected $description = 'Checks if a given plugin is active.';

@@ -2,6 +2,7 @@
 namespace Daedelus\Framework\Bootstrap;
 
 use Daedelus\Framework\Configuration\Configure;
+use Daedelus\Support\Filters;
 use Illuminate\Contracts\Foundation\Application;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;

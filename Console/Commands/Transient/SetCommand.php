@@ -16,7 +16,8 @@ class SetCommand extends Command
 	 *
 	 * @var string
 	 */
-	protected $signature = 'transient:set {key} {value} {expiration?} {--network}';
+	protected $signature = 'transient:set {key} {value} {expiration?} 
+	                        {--network}';
 
 	/**
 	 * The console command description.

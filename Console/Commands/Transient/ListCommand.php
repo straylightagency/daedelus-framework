@@ -18,7 +18,11 @@ class ListCommand extends Command
 	 *
 	 * @var string
 	 */
-	protected $signature = 'transient:list {--search=} {--exclude=} {--fields=} {--network}';
+	protected $signature = 'transient:list 
+	                        {--search=} 
+	                        {--exclude=} 
+	                        {--fields=} 
+	                        {--network}';
 
 	/**
 	 * The console command description.

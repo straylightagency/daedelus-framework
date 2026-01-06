@@ -25,7 +25,14 @@ class UpdateCommand extends Command
 	use ManagePlugins, CanRequestWpOrg, CompareSemanticNamedVersion, CanCallUpgrader;
 
 	/** @var string */
-	protected $signature = 'plugin:update {plugins?*} {--all} {--use=} {--force} {--minor} {--patch} {--dry-run} {--exclude=}';
+	protected $signature = 'plugin:update {plugins?*} 
+	                        {--all} 
+	                        {--use=} 
+	                        {--force} 
+	                        {--minor} 
+	                        {--patch} 
+	                        {--dry-run} 
+	                        {--exclude=}';
 
 	/** @var string */
 	protected $description = 'Updates one or more plugins.';

@@ -11,7 +11,8 @@ use Symfony\Component\Console\Attribute\AsCommand;
 class ScheduleCommand extends Command
 {
 	/** @var string */
-	protected $signature = 'cron:event:schedule {hook} {next-run?} {recurrence?} {--args=}';
+	protected $signature = 'cron:event:schedule {hook} {next-run?} {recurrence?} 
+	                        {--args=}';
 
 	/** @var string */
 	protected $description = 'Schedules a new cron event.';

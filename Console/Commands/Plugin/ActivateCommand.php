@@ -14,7 +14,9 @@ class ActivateCommand extends Command
 	use ManagePlugins;
 
 	/** @var string */
-	protected $signature = 'plugin:activate {plugins?*} {--all} {--network}';
+	protected $signature = 'plugin:activate {plugins?*} 
+                            {--all} 
+                            {--network}';
 
 	/** @var string */
 	protected $description = 'Activates one or more plugins.';

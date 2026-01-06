@@ -3,6 +3,7 @@
 namespace Daedelus\Framework\Hooks;
 
 use Daedelus\Support\Actions;
+use Daedelus\Support\Filters;
 use Illuminate\Support\Str;
 
 /**

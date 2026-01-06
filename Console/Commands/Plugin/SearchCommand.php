@@ -12,7 +12,10 @@ use Symfony\Component\Console\Attribute\AsCommand;
 class SearchCommand extends Command
 {
 	/** @var string */
-	protected $signature = 'plugin:search {search} {--per-page=20} {--page=1} {--fields=name,version,slug,ratings}';
+	protected $signature = 'plugin:search {search} 
+	                        {--per-page=20} 
+	                        {--page=1} 
+	                        {--fields=name,version,slug,ratings}';
 
 	/** @var string */
 	protected $description = 'Displays plugins in the WordPress.org plugin directory matching a given search query.';

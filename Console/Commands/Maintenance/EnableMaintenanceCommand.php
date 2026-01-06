@@ -1,7 +1,6 @@
 <?php
 namespace Daedelus\Framework\Console\Commands\Maintenance;
 
-use Daedelus\Framework\Console\Commands\Concerns\GetMaintenanceStatus;
 use Daedelus\Framework\Console\Commands\Concerns\ManageMaintenanceMode;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
@@ -14,10 +13,11 @@ use Symfony\Component\Console\Attribute\AsCommand;
 #[AsCommand(name: 'maintenance:enable')]
 class EnableMaintenanceCommand extends Command
 {
-	use GetMaintenanceStatus, ManageMaintenanceMode;
+    use ManageMaintenanceMode;
 
 	/** @var string */
-	protected $signature = 'maintenance:enable {--force}';
+	protected $signature = 'maintenance:enable 
+	                        {--force}';
 
 	/** @var string */
 	protected $description = 'Enabling the maintenance mode.';
@@ -36,7 +36,7 @@ class EnableMaintenanceCommand extends Command
 	 */
 	public function handle():void
 	{
-		if ( $this->getStatus() && !$this->hasOption('force') ) {
+		if ( $this->getMaintenanceStatus() && !$this->hasOption('force') ) {
 			$this->error('Maintenance mode already enabled.');
 			return;
 		}

@@ -15,7 +15,10 @@ class DeleteCommand extends Command
 	use ManageCronEvents;
 
 	/** @var string */
-	protected $signature = 'cron:event:delete {hooks?*} {--due-now} {--exclude=} {--all}';
+	protected $signature = 'cron:event:delete {hooks?*} 
+	                        {--due-now} 
+	                        {--exclude=} 
+	                        {--all}';
 
 	/** @var string */
 	protected $description = 'Deletes all scheduled cron events for the given hook.';

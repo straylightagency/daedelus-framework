@@ -15,7 +15,9 @@ class DeactivateCommand extends Command
 	use ManagePlugins;
 
 	/** @var string */
-	protected $signature = 'plugin:deactivate {plugins?*} {--all} {--network}';
+	protected $signature = 'plugin:deactivate {plugins?*} 
+	                        {--all} 
+	                        {--network}';
 
 	/** @var string */
 	protected $description = 'Deactivates one or more plugins.';

@@ -11,7 +11,9 @@ use Symfony\Component\Console\Attribute\AsCommand;
 class ListCommand extends Command
 {
 	/** @var string */
-	protected $signature = 'cron:schedule:list {--fields=} {--field}';
+	protected $signature = 'cron:schedule:list 
+	                        {--fields=} 
+	                        {--field}';
 
 	/** @var string */
 	protected $description = 'List available cron schedules.';

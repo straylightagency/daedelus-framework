@@ -14,7 +14,8 @@ class IsInstalledCommand extends Command
 	use ManagePlugins;
 
 	/** @var string */
-	protected $signature = 'plugin:is-installed {plugin}';
+	protected $signature = 'plugin:is-installed 
+	                        {plugin}';
 
 	/** @var string */
 	protected $description = 'Checks if a given plugin is installed.';
