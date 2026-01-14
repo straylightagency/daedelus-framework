@@ -38,6 +38,8 @@ class BootWordPress
 
 	    $table_prefix = DB_PREFIX;
 
-	    require_once $app->publicPath('wp-settings.php');
+        if ( file_exists( $app->publicPath('wp-settings.php') ) ) {
+            require_once $app->publicPath('wp-settings.php');
+        }
     }
 }
