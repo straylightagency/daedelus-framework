@@ -7,7 +7,6 @@
         "php": ">=8.3",
         "vlucas/phpdotenv": "^5.5@dev",
         "composer/semver": "^3.0@dev",
-        "fakerphp/faker": "2.0.x-dev",
         "league/flysystem": "4.x-dev",
         "daedelus/foundation": "dev-main",
         "daedelus/concurrency": "dev-main"
