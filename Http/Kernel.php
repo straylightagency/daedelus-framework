@@ -31,7 +31,7 @@ use Illuminate\Foundation\Http\Kernel as BaseKernel;
  */
 class Kernel extends BaseKernel
 {
-	use InteractsWithTime;
+    use InteractsWithTime;
 
     /**
      * The router instance.
@@ -40,50 +40,50 @@ class Kernel extends BaseKernel
      */
     protected $router;
 
-	/**
-	 * The bootstrap classes for the application.
-	 *
-	 * @var string[]
-	 */
-	protected $bootstrappers = [
-		LoadEnvironmentVariables::class,
-		LoadConfiguration::class,
-		HandleExceptions::class,
-		RegisterFacades::class,
-		RegisterProviders::class,
-		BootProviders::class,
-		BootWordPress::class,
-	];
+    /**
+     * The bootstrap classes for the application.
+     *
+     * @var string[]
+     */
+    protected $bootstrappers = [
+        LoadEnvironmentVariables::class,
+        LoadConfiguration::class,
+        HandleExceptions::class,
+        RegisterFacades::class,
+        RegisterProviders::class,
+        BootProviders::class,
+        BootWordPress::class,
+    ];
 
-	/** @var Request */
-	protected Request $request;
+    /** @var Request */
+    protected Request $request;
 
-	/**
-	 * Handle an incoming HTTP request.
-	 *
-	 * @param Request $request
-	 *
-	 * @return void
-	 */
-	public function handle($request): void
-	{
-		$this->request = $request;
+    /**
+     * Handle an incoming HTTP request.
+     *
+     * @param Request $request
+     *
+     * @return void
+     */
+    public function handle($request): void
+    {
+        $this->request = $request;
 
-		$this->requestStartedAt = Carbon::now();
+        $this->requestStartedAt = Carbon::now();
 
-		$request->enableHttpMethodParameterOverride();
+        $request->enableHttpMethodParameterOverride();
 
-		$this->app->instance( 'request', $request );
+        $this->app->instance( 'request', $request );
 
-		Facade::clearResolvedInstance('request');
+        Facade::clearResolvedInstance('request');
 
-		$this->bootstrap();
+        $this->bootstrap();
 
-		Actions::add('template_redirect', fn () => ob_start() );
-		Actions::remove('template_redirect', 'redirect_canonical');
-		Actions::remove('shutdown', 'wp_ob_end_flush_all', 1 );
+        Actions::add('template_redirect', fn () => ob_start() );
+        Actions::remove('template_redirect', 'redirect_canonical');
+        Actions::remove('shutdown', 'wp_ob_end_flush_all', 1 );
 
-		Actions::add('parse_request', function () use ($request) {
+        Actions::add('parse_request', function () use ($request) {
             $this->syncMiddlewareToRouter();
 
             try {
@@ -128,51 +128,51 @@ class Kernel extends BaseKernel
 
                 $this->sendResponse( $request, $response );
             }
-		} );
-	}
+        } );
+    }
 
-	/**
-	 * @param Request $request
-	 * @param Route $route
-	 *
-	 * @return Response
+    /**
+     * @param Request $request
+     * @param Route $route
+     *
+     * @return Response
      */
-	protected function handlingRequest(Request $request, Route $route): Response
-	{
+    protected function handlingRequest(Request $request, Route $route): Response
+    {
         return ( new Pipeline( $this->app ) )
             ->send( $request )
             ->pipe( $this->app->shouldSkipMiddleware() ? [] : $this->middleware )
             ->then( fn ( $request ) => $this->router->runRoute( $request, $route ) );
-	}
+    }
 
-	/**
-	 * @param $request
-	 * @param $response
-	 *
-	 * @return void
-	 * @throws BindingResolutionException
-	 */
-	protected function sendResponse($request, $response): void
-	{
-		$this->app['events']->dispatch(
-			new RequestHandled( $request, $response )
-		);
+    /**
+     * @param $request
+     * @param $response
+     *
+     * @return void
+     * @throws BindingResolutionException
+     */
+    protected function sendResponse($request, $response): void
+    {
+        $this->app['events']->dispatch(
+            new RequestHandled( $request, $response )
+        );
 
-		$response->send();
+        $response->send();
 
-		$this->terminate( $request, $response );
-	}
+        $this->terminate( $request, $response );
+    }
 
-	/**
-	 * Register the default WordPress route.
-	 */
-	protected function registerWordPressRoute(): Route
-	{
-		return Routing::any('{__wordpress?}', fn () => response('') )
-		     ->middleware( [ 'web', 'wp' ] )
-		     ->where('__wordpress', '.*')
-		     ->name('wordpress');
-	}
+    /**
+     * Register the default WordPress route.
+     */
+    protected function registerWordPressRoute(): Route
+    {
+        return Routing::any('{__wordpress?}', fn () => response('') )
+            ->middleware( [ 'web', 'wp' ] )
+            ->where('__wordpress', '.*')
+            ->name('wordpress');
+    }
 
     /**
      * @param Request $request
@@ -184,6 +184,14 @@ class Kernel extends BaseKernel
         /** @var \Daedelus\Framework\Routing\Router $router */
         $router = $this->app->make( Router::class );
 
-        return $router->getRoutes()->match( $request );
+        $this->app['events']->dispatch( new \Illuminate\Routing\Events\Routing( $request ) );
+
+        $router->setCurrentRoute( $route = $router->getRoutes()->match( $request ) );
+
+        $route->setContainer( $this->app );
+
+        $this->app->instance( Route::class, $route );
+
+        return $route;
     }
 }

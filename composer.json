@@ -9,7 +9,8 @@
         "composer/semver": "^3.0@dev",
         "league/flysystem": "4.x-dev",
         "daedelus/foundation": "dev-main",
-        "daedelus/concurrency": "dev-main"
+        "daedelus/concurrency": "dev-main",
+        "ext-intl": "*"
     },
     "license": "MIT",
     "authors": [

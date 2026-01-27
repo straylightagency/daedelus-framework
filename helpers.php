@@ -482,6 +482,24 @@ if ( !function_exists('carbon') ) {
     }
 }
 
+if ( ! function_exists('carbon_locale') ) {
+    /**
+     * Format a given DateTime object into the configured app locale
+     *
+     * @param DateTime $dateTime
+     * @param int $formatter
+     * @return string
+     */
+    function carbon_locale(DateTime $dateTime, int $formatter = IntlDateFormatter::NONE): string
+    {
+        return ( new IntlDateFormatter(
+            config('app.locale'),
+            IntlDateFormatter::GREGORIAN,
+            $formatter
+        ) )->format( $dateTime );
+    }
+}
+
 if ( !function_exists('json_from') ) {
 	/**
 	 * Transform an array or an object into JSON
