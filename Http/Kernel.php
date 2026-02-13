@@ -86,17 +86,9 @@ class Kernel extends BaseKernel
         Actions::add('parse_request', function () use ($request) {
             $this->syncMiddlewareToRouter();
 
+            $wordpressRoute = $this->registerWordPressRoute();
+
             try {
-                $request->merge( [ 'is_laravel_request' => true ] );
-
-                $response = $this->handlingRequest( $request,
-                    $this->matchRoute( $request )
-                );
-
-                $this->sendResponse( $request, $response );
-            } catch ( MethodNotAllowedHttpException | NotFoundHttpException $exception ) {
-                $request->merge( [ 'is_laravel_request' => false ] );
-
                 $path = Str::finish( $request->getBaseUrl(), $request->getPathInfo() );
 
                 $except = collect( [
@@ -113,20 +105,21 @@ class Kernel extends BaseKernel
                     Str::endsWith( $path, '.php' ) ||
                     ( Str::startsWith( $path, $api_url ) && redirect_canonical(null, false) ) )
                 {
-                    return;
+                    $matchedRoute = $wordpressRoute->bind( $request );
+                } else {
+                    $matchedRoute = $this->router->findRoute( $request );
                 }
 
-                $route = $this->registerWordPressRoute()->bind( $request );
-
-                $response = $this->handlingRequest( $request, $route );
-
-                Actions::add('shutdown', fn () => $this->sendResponse( $request, $response ), 100 );
-            } catch ( Throwable $throwable ) {
+                $response = $this->handlingRequest( $request,
+                    $matchedRoute
+                );
+            }
+            catch ( Throwable $throwable ) {
                 $this->reportException( $throwable );
 
                 $response = $this->renderException( $request, $throwable );
-
-                $this->sendResponse( $request, $response );
+            } finally {
+                Actions::add('shutdown', fn () => $this->sendResponse( $request, $response ), 100 );
             }
         } );
     }
@@ -172,26 +165,5 @@ class Kernel extends BaseKernel
             ->middleware( [ 'web', 'wp' ] )
             ->where('__wordpress', '.*')
             ->name('wordpress');
-    }
-
-    /**
-     * @param Request $request
-     * @return Route
-     * @throws BindingResolutionException
-     */
-    protected function matchRoute(Request $request): Route
-    {
-        /** @var \Daedelus\Framework\Routing\Router $router */
-        $router = $this->app->make( Router::class );
-
-        $this->app['events']->dispatch( new \Illuminate\Routing\Events\Routing( $request ) );
-
-        $router->setCurrentRoute( $route = $router->getRoutes()->match( $request ) );
-
-        $route->setContainer( $this->app );
-
-        $this->app->instance( Route::class, $route );
-
-        return $route;
     }
 }

@@ -5,6 +5,7 @@ namespace Daedelus\Framework\Routing;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\Request;
 use Illuminate\Pipeline\Pipeline;
+use Illuminate\Routing\Events\Routing;
 use Illuminate\Routing\Route;
 use Illuminate\Routing\Router as BaseRouter;
 use Symfony\Component\HttpFoundation\Response;
@@ -54,11 +55,21 @@ class Router extends BaseRouter
     }
 
     /**
-     * @param Route $route
-     * @return void
+     * Find the route matching a given request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Routing\Route
      */
-    public function setCurrentRoute(Route $route)
+    public function findRoute($request): Route
     {
-        $this->current = $route;
+        $this->events->dispatch( new Routing( $request ) );
+
+        $this->current = $route = $this->routes->match( $request );
+
+        $route->setContainer( $this->container );
+
+        $this->container->instance(Route::class, $route );
+
+        return $route;
     }
 }
