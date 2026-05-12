@@ -17,15 +17,15 @@ class FoundationServiceProvider extends ServiceProvider
         if ( $this->app->runningInConsole() ) {
             $this->publishes( [
                 __DIR__ . '/../dropins' => content_path(),
-            ], 'majestic-dropins');
+            ], 'daedelus-dropins');
 
             $this->publishes( [
                 __DIR__ . '/../dropins/object-cache.php' => content_path('object-cache.php'),
-            ], 'majestic-dropins-objectcache');
+            ], 'daedelus-dropins-objectcache');
 
             $this->publishes( [
                 __DIR__ . '/../dropins/db.php' => content_path('db.php'),
-            ], 'majestic-dropins-db');
+            ], 'daedelus-dropins-db');
         }
     }
 }

@@ -34,9 +34,9 @@ class CustomizeAdmin extends Hook
     {
 	    Actions::add( 'admin_head', function () {
             echo '<style>
-            .majestic-footer a { vertical-align: middle; margin-top: 1px; display: inline-block; color: #2f2f2f; font-weight: bold;text-decoration: none; transition: color .3s ease-in-out; }
-            .majestic-footer a svg { width: auto; height: 35px; opacity: 0.7; transition: opacity .3s ease-out; margin-left: 2.5px; }
-            .majestic-footer a:hover svg, .majestic-footer a:focus svg { opacity: 1; }
+            .daedelus-footer a { vertical-align: middle; margin-top: 1px; display: inline-block; color: #2f2f2f; font-weight: bold;text-decoration: none; transition: color .3s ease-in-out; }
+            .daedelus-footer a svg { width: auto; height: 35px; opacity: 0.7; transition: opacity .3s ease-out; margin-left: 2.5px; }
+            .daedelus-footer a:hover svg, .daedelus-footer a:focus svg { opacity: 1; }
           </style>';
         } );
 
@@ -120,7 +120,7 @@ class CustomizeAdmin extends Hook
 </defs>
 </svg>';
 
-            return '<span class="majestic-footer">Made by <a href="https://www.anthonypauwels.be/" target="_blank">' . $logo . '</a></span>';
+            return '<span class="daedelus-footer">Made by <a href="https://www.anthonypauwels.be/" target="_blank">' . $logo . '</a></span>';
         } );
     }
 

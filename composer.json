@@ -10,7 +10,8 @@
         "league/flysystem": "4.x-dev",
         "daedelus/foundation": "dev-main",
         "daedelus/concurrency": "dev-main",
-        "ext-intl": "*"
+        "ext-intl": "*",
+        "ext-pdo": "*"
     },
     "license": "MIT",
     "authors": [

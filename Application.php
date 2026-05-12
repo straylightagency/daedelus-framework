@@ -126,7 +126,7 @@ class Application extends BaseApplication
                  * WordPress Database using .env variables;
                  * these config constants are defined for backward compatibility with $wpdb
                  */
-                $config->define( 'DB_NAME', env( 'DB_DATABASE', 'majestic' ) );
+                $config->define( 'DB_NAME', env( 'DB_DATABASE', 'daedelus' ) );
                 $config->define( 'DB_USER', env( 'DB_USERNAME', 'root' ) );
                 $config->define( 'DB_PASSWORD', env( 'DB_PASSWORD', 'root' ) );
                 $config->define( 'DB_HOST', env( 'DB_HOST', 'localhost' ) );

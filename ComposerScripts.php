@@ -151,11 +151,11 @@ class ComposerScripts
     {
         $defaults = [
             'WP_TITLE' => env('WP_TITLE') ?? 'Daedelus',
-            'WP_HOME' => env('WP_HOME') ?? 'http://majestic.local.host/',
+            'WP_HOME' => env('WP_HOME') ?? 'http://daedelus.local.host/',
             'WP_USER' => env('WP_USER') ?? 'private',
             'WP_PASSWORD' => str_replace( ['"', "'"] , '', env('WP_PASSWORD') ?? self::generateRandomString( 16, false ) ),
             'WP_EMAIL' => env('WP_EMAIL') ?? 'private@anthonypauwels.be',
-            'DB_NAME' => env('DB_NAME') ?? 'majestic',
+            'DB_NAME' => env('DB_NAME') ?? 'daedelus',
         ];
 
         $title = self::$io->ask('What is the site title ? (default: "' . $defaults['WP_TITLE'] . '")', $defaults['WP_TITLE'] );
@@ -214,7 +214,7 @@ class ComposerScripts
      */
     protected static function createDatabase():void
     {
-        $db_name = env('DB_NAME') ?? 'majestic';
+        $db_name = env('DB_NAME') ?? 'daedelus';
         $db_host = env('DB_HOST') ?? 'localhost';
         $db_user = env('DB_USER') ?? 'root';
         $db_password = env('DB_PASSWORD') ?? 'root';

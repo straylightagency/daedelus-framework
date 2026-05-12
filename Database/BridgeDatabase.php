@@ -1385,10 +1385,22 @@ class BridgeDatabase
 	 *
 	 * @return string
 	 */
-	public function esc_like(string $text ): string
+	public function esc_like(string $text): string
 	{
 		return addcslashes( $text, '_%\\' );
 	}
+
+    /**
+     * Escapes content by reference for insertion into the database, for security.
+     *
+     * @param string $data String to escape.
+     */
+    public function escape_by_ref(&$data): void
+    {
+        if ( ! is_float( $data ) ) {
+            $data = $this->real_escape( $data );
+        }
+    }
 
 	/**
 	 * Strips any invalid characters based on value/charset pairs.
@@ -1402,7 +1414,8 @@ class BridgeDatabase
 	 *                        a WP_Error object is returned.
 	 * @throws Exception
 	 */
-	protected function strip_invalid_text(array $data): WP_Error|array {
+	protected function strip_invalid_text(array $data): WP_Error|array
+    {
 		$db_check_string = false;
 
 		foreach ( $data as &$value ) {

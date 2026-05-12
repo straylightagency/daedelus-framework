@@ -124,7 +124,8 @@ class Vite
 		}
 
         if ( empty( $this->cache ) ) {
-            $this->cache = json_decode( file_get_contents( $this->manifestPath ), true );
+            $cached = json_decode( file_get_contents( $this->manifestPath ), true );
+            $this->cache = is_array( $cached ) ? $cached : [];
         }
 
 		return $entries->map( fn ($entry) => $this->makeTagForChunk( $entry, '/' . $this->assetsDir . '/', $this->cache ) )->join('');
