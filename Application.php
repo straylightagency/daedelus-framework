@@ -2,76 +2,75 @@
 namespace Daedelus\Framework;
 
 use Closure;
-use Daedelus\Framework\Bootstrap\BootWordPress;
-use Daedelus\Framework\Configuration\ApplicationBuilder;
-use Daedelus\Framework\Configuration\Configure;
-use Daedelus\Framework\Routing\Middleware\WordPress404;
-use Daedelus\Framework\Routing\Middleware\WordPressContent;
-use Daedelus\Framework\Routing\Middleware\WordPressHeaders;
-use Daedelus\Framework\Routing\RoutingServiceProvider;
-use Illuminate\Container\Container;
-use Illuminate\Contracts\Console\Kernel as ConsoleKernelContract;
-use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Contracts\Filesystem\FileNotFoundException;
-use Illuminate\Contracts\Http\Kernel as HttpKernelContract;
-use Illuminate\Events\EventServiceProvider;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Foundation\Application as BaseApplication;
-use Illuminate\Foundation\Configuration\Middleware;
-use Illuminate\Foundation\PackageManifest;
 use Illuminate\Http\Request;
+use Illuminate\Container\Container;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Log\LogServiceProvider;
-use Psr\Container\ContainerExceptionInterface;
+use Illuminate\Foundation\PackageManifest;
+use Illuminate\Events\EventServiceProvider;
 use Psr\Container\NotFoundExceptionInterface;
 use Psr\SimpleCache\InvalidArgumentException;
+use Psr\Container\ContainerExceptionInterface;
+use Daedelus\Framework\Configuration\Configure;
+use Daedelus\Framework\Bootstrap\BootWordPress;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\ConsoleOutput;
+use Illuminate\Foundation\Configuration\Middleware;
+use Daedelus\Framework\Routing\RoutingServiceProvider;
+use Daedelus\Framework\Configuration\ApplicationBuilder;
+use Illuminate\Foundation\Application as BaseApplication;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
+use Daedelus\Framework\Routing\Middleware\WordPressHeaders;
+use Illuminate\Contracts\Http\Kernel as HttpKernelContract;
+use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Contracts\Console\Kernel as ConsoleKernelContract;
 
 /**
  *
  */
 class Application extends BaseApplication
 {
-	/**
-	 * The Daedelus framework version.
-	 *
-	 * @var string
-	 */
-	const string VERSION = '0.1.4';
+    /**
+     * The Daedelus framework version.
+     *
+     * @var string
+     */
+    const string VERSION = '0.1.5';
 
-	/** @var string */
-	protected string $contentPath = 'content';
+    /** @var string */
+    protected string $contentPath = 'content';
 
-	/** @var string */
-	protected string $themePath = '';
+    /** @var string */
+    protected string $themePath = '';
 
-	/** @var string */
-	protected string $themeUrl = '';
+    /** @var string */
+    protected string $themeUri = '';
 
-	/**
-	 * Begin configuring a new Laravel application instance.
-	 *
-	 * @param string|null $basePath
-	 *
-	 * @return ApplicationBuilder
-	 * @throws ContainerExceptionInterface
-	 * @throws NotFoundExceptionInterface
-	 */
-	public static function configure(?string $basePath = null): ApplicationBuilder
-	{
-		$basePath = is_string( $basePath ) ? $basePath : static::inferBasePath();
+    /** @var bool */
+    protected bool $handlingWordPress = false;
 
-		return (new Configuration\ApplicationBuilder( new static( $basePath ) ) )
-			->withKernels()
-			->withEvents()
-			->withCommands()
-			->withProviders()
-			->withFacades()
+    /**
+     * Begin configuring a new Laravel application instance.
+     *
+     * @param string|null $basePath
+     *
+     * @return ApplicationBuilder
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
+    public static function configure(?string $basePath = null): ApplicationBuilder
+    {
+        $basePath = is_string( $basePath ) ? $basePath : static::inferBasePath();
+
+        return (new Configuration\ApplicationBuilder( new static( $basePath ) ) )
+            ->withKernels()
+            ->withEvents()
+            ->withCommands()
+            ->withProviders()
+            ->withFacades()
             ->withMiddleware( function ( Middleware $middleware ) {
                 $middleware->group('wp', [
                     WordPressHeaders::class,
-                    WordPress404::class,
-                    WordPressContent::class
                 ] );
             } )
             ->withConfig( function (Configure $config) {
@@ -163,238 +162,258 @@ class Application extends BaseApplication
                 $config->define( 'LOGGED_IN_SALT', config( 'wordpress.logged_in_salt' ) );
                 $config->define( 'NONCE_SALT', config( 'wordpress.nonce_salt' ) );
             } );
-	}
+    }
 
-	/**
-	 * Register the basic bindings into the container.
-	 *
-	 * @return void
-	 */
-	protected function registerBaseBindings(): void
-	{
-		if ( is_null( static::$instance ) ) {
-			static::setInstance( $this );
-		}
+    /**
+     * Register the basic bindings into the container.
+     *
+     * @return void
+     */
+    protected function registerBaseBindings(): void
+    {
+        if ( is_null( static::$instance ) ) {
+            static::setInstance( $this );
+        }
 
-		$this->instance( 'app', $this );
+        $this->instance( 'app', $this );
 
-		$this->instance( Container::class, $this );
+        $this->instance( Container::class, $this );
 
-		$this->singleton( PackageManifest::class, fn () => new PackageManifest(
-			new Filesystem, $this->basePath(), $this->getCachedPackagesPath()
-		) );
-	}
+        $this->singleton( PackageManifest::class, fn () => new PackageManifest(
+            new Filesystem, $this->basePath(), $this->getCachedPackagesPath()
+        ) );
+    }
 
-	/**
-	 * Register all the base service providers.
-	 *
-	 * @return void
-	 */
-	protected function registerBaseServiceProviders(): void
-	{
-		$this->register( new EventServiceProvider( $this ) );
-		$this->register( new LogServiceProvider( $this ) );
-		$this->register( new RoutingServiceProvider( $this ) );
-	}
+    /**
+     * Register all the base service providers.
+     *
+     * @return void
+     */
+    protected function registerBaseServiceProviders(): void
+    {
+        $this->register( new EventServiceProvider( $this ) );
+        $this->register( new LogServiceProvider( $this ) );
+        $this->register( new RoutingServiceProvider( $this ) );
+    }
 
-	/**
-	 * @param string $path
-	 * @return string
-	 */
-	public function contentPath(string $path = ''): string
-	{
-		return $this->publicPath($this->contentPath . ( $path != '' ? DIRECTORY_SEPARATOR . $path : '' ) );
-	}
+    /**
+     * @param string $path
+     * @return string
+     */
+    public function contentPath(string $path = ''): string
+    {
+        return $this->publicPath($this->contentPath . ( $path != '' ? DIRECTORY_SEPARATOR . $path : '' ) );
+    }
 
-	/**
-	 * @param string $path
-	 *
-	 * @return string
-	 */
-	public function contentUrl(string $path = ''): string
-	{
-		return config( 'app.url' ) .
-		       str_replace( $this->publicPath(), '',
-			       $this->publicPath( $this->contentPath . ( $path != '' ? DIRECTORY_SEPARATOR . $path : '' ) )
-		       );
-	}
+    /**
+     * @param string $path
+     *
+     * @return string
+     */
+    public function contentUrl(string $path = ''): string
+    {
+        return config( 'app.url' ) .
+            str_replace( $this->publicPath(), '',
+                $this->publicPath( $this->contentPath . ( $path != '' ? DIRECTORY_SEPARATOR . $path : '' ) )
+            );
+    }
 
-	/**
-	 * @param string $path
-	 * @return string
-	 */
-	public function uploadPath(string $path = ''): string
-	{
-		return $this->publicPath('uploads' . ( $path != '' ? DIRECTORY_SEPARATOR . $path : '' ) );
-	}
+    /**
+     * @param string $path
+     * @return string
+     */
+    public function uploadPath(string $path = ''): string
+    {
+        return $this->publicPath('uploads' . ( $path != '' ? DIRECTORY_SEPARATOR . $path : '' ) );
+    }
 
-	/**
-	 * @param string $path
-	 * @return string
-	 */
-	public function muPluginsPath(string $path = ''): string
-	{
-		return $this->contentPath('mu-plugins' . ( $path != '' ? DIRECTORY_SEPARATOR . $path : '' ) );
-	}
+    /**
+     * @param string $path
+     * @return string
+     */
+    public function muPluginsPath(string $path = ''): string
+    {
+        return $this->contentPath('mu-plugins' . ( $path != '' ? DIRECTORY_SEPARATOR . $path : '' ) );
+    }
 
-	/**
-	 * @param string $path
-	 * @return string
-	 */
-	public function pluginsPath(string $path = ''): string
-	{
-		return $this->contentPath('plugins' . ( $path != '' ? DIRECTORY_SEPARATOR . $path : '' ) );
-	}
+    /**
+     * @param string $path
+     * @return string
+     */
+    public function pluginsPath(string $path = ''): string
+    {
+        return $this->contentPath('plugins' . ( $path != '' ? DIRECTORY_SEPARATOR . $path : '' ) );
+    }
 
-	/**
-	 * @param string $path
-	 * @return string
-	 */
-	public function themePath(string $path = ''): string
-	{
-		return $this->themePath . ( $path != '' ? DIRECTORY_SEPARATOR . $path : '');
-	}
+    /**
+     * @param string $path
+     * @return string
+     */
+    public function themePath(string $path = ''): string
+    {
+        return $this->themePath . ( $path != '' ? DIRECTORY_SEPARATOR . $path : '');
+    }
 
-	/**
-	 * @param string $path
-	 *
-	 * @return string
-	 */
-	public function themeUrl(string $path = ''): string
-	{
-		return $this->themeUrl . ( $path != '' ? DIRECTORY_SEPARATOR . $path : '');
-	}
+    /**
+     * @param string $path
+     *
+     * @return string
+     */
+    public function themeUri(string $path = ''): string
+    {
+        return $this->themeUri . ( $path != '' ? DIRECTORY_SEPARATOR . $path : '');
+    }
 
-	/**
-	 * @param string $path
-	 * @return $this
-	 */
-	public function setThemePath(string $path): static
-	{
-		$this->themePath = $path;
+    /**
+     * @param string $path
+     * @return $this
+     */
+    public function setThemePath(string $path): static
+    {
+        $this->themePath = $path;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @param string $url
-	 * @return $this
-	 */
-	public function setThemeUrl(string $url): static
-	{
-		$this->themeUrl = $url;
+    /**
+     * @param string $uri
+     * @return $this
+     */
+    public function setThemeUri(string $uri): static
+    {
+        $this->themeUri = $uri;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @param Closure $closure
-	 *
-	 * @return void
-	 */
-	public function beforeBootingWordPress(Closure $closure):void
-	{
-		$this->beforeBootstrapping( BootWordPress::class, $closure );
-	}
+    /**
+     * @param Closure $closure
+     *
+     * @return void
+     */
+    public function beforeBootingWordPress(Closure $closure):void
+    {
+        $this->beforeBootstrapping( BootWordPress::class, $closure );
+    }
 
-	/**
-	 * @param Closure $closure
-	 *
-	 * @return void
-	 */
-	public function afterBootingWordPress(Closure $closure):void
-	{
-		$this->afterBootstrapping( BootWordPress::class, $closure );
-	}
+    /**
+     * @param Closure $closure
+     *
+     * @return void
+     */
+    public function afterBootingWordPress(Closure $closure):void
+    {
+        $this->afterBootstrapping( BootWordPress::class, $closure );
+    }
 
-	/**
-	 * @param Request $request *
-	 *
-	 * @return void
-	 * @throws BindingResolutionException
-	 */
-	public function handleRequest(Request $request): void
-	{
-		/** @var HttpKernelContract $kernel */
-		$kernel = $this->make( HttpKernelContract::class );
+    /**
+     * @param Request $request *
+     *
+     * @return void
+     * @throws BindingResolutionException
+     */
+    public function handleRequest(Request $request): void
+    {
+        /** @var HttpKernelContract $kernel */
+        $kernel = $this->make( HttpKernelContract::class );
 
-		$kernel->handle( $request );
-	}
+        $kernel->handle( $request );
+    }
 
-	/**
-	 * Handle the incoming Artisan command.
-	 *
-	 * @param InputInterface $input
-	 *
-	 * @return int
-	 * @throws BindingResolutionException
-	 */
-	public function handleCommand(InputInterface $input): int
-	{
-		$kernel = $this->make( ConsoleKernelContract::class );
+    /**
+     * Handle the incoming Artisan command.
+     *
+     * @param InputInterface $input
+     *
+     * @return int
+     * @throws BindingResolutionException
+     */
+    public function handleCommand(InputInterface $input): int
+    {
+        $kernel = $this->make( ConsoleKernelContract::class );
 
-		$status = $kernel->handle(
-			$input,
-			new ConsoleOutput
-		);
+        $status = $kernel->handle(
+            $input,
+            new ConsoleOutput
+        );
 
-		$kernel->terminate( $input, $status );
+        $kernel->terminate( $input, $status );
 
-		return $status;
-	}
+        return $status;
+    }
 
-	/**
-	 * @param ...$hidden_files
-	 *
-	 * @return void
-	 * @throws ContainerExceptionInterface
-	 * @throws InvalidArgumentException
-	 * @throws NotFoundExceptionInterface
-	 * @throws FileNotFoundException
-	 */
-	public function loadPlugins( ...$hidden_files ): void
-	{
-		( new PluginsRepository( $this, new Filesystem ) )
-			->load( ...$hidden_files );
-	}
+    /**
+     * Mark the app has handling a WordPress Request.
+     *
+     * @return void
+     */
+    public function handlingWordPress(): void
+    {
+        $this->handlingWordPress = true;
+    }
 
-	/**
-	 * @return void
-	 * @throws ContainerExceptionInterface
-	 * @throws NotFoundExceptionInterface
-	 */
-	public function registerHooks():void
-	{
-		$this->get( HooksRepository::class )->register();
-	}
+    /**
+     * Is handling a WordPress Request or not.
+     *
+     * @return bool
+     */
+    public function isHandlingWordPress(): bool
+    {
+        return $this->handlingWordPress;
+    }
 
-	/**
-	 * Get the path to the cached packages.php file.
-	 *
-	 * @return string
-	 */
-	public function getCachedPluginsPath(): string
-	{
-		return $this->normalizeCachePath('APP_PLUGINS_CACHE', 'cache/must-use-plugins.php');
-	}
+    /**
+     * @param ...$hidden_files
+     *
+     * @return void
+     * @throws ContainerExceptionInterface
+     * @throws InvalidArgumentException
+     * @throws NotFoundExceptionInterface
+     * @throws FileNotFoundException
+     */
+    public function loadPlugins( ...$hidden_files ): void
+    {
+        ( new PluginsRepository( $this, new Filesystem ) )
+            ->load( ...$hidden_files );
+    }
 
-	/**
-	 * Determine if the application configuration is cached.
-	 *
-	 * @return bool
-	 */
-	public function pluginsManifestIsCached(): bool
-	{
-		return is_file( $this->getCachedPluginsPath() );
-	}
+    /**
+     * @return void
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
+    public function registerHooks():void
+    {
+        $this->get( HooksRepository::class )->register();
+    }
 
-	/**
-	 * Get the version number of the application.
-	 *
-	 * @return string
-	 */
-	public function version(): string
-	{
-		return parent::VERSION . ' (Daedelus ' . static::VERSION . ') ';
-	}
+    /**
+     * Get the path to the cached packages.php file.
+     *
+     * @return string
+     */
+    public function getCachedPluginsPath(): string
+    {
+        return $this->normalizeCachePath('APP_PLUGINS_CACHE', 'cache/must-use-plugins.php');
+    }
+
+    /**
+     * Determine if the application configuration is cached.
+     *
+     * @return bool
+     */
+    public function pluginsManifestIsCached(): bool
+    {
+        return is_file( $this->getCachedPluginsPath() );
+    }
+
+    /**
+     * Get the version number of the application.
+     *
+     * @return string
+     */
+    public function version(): string
+    {
+        return parent::VERSION . ' (Daedelus ' . static::VERSION . ') ';
+    }
 }

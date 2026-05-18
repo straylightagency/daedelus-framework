@@ -2,13 +2,13 @@
 
 namespace Daedelus\Framework\Routing;
 
-use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Routing\Events\Routing;
-use Illuminate\Routing\Route;
 use Illuminate\Routing\Router as BaseRouter;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Contracts\Container\BindingResolutionException;
 
 /**
  * Override the Laravel Router

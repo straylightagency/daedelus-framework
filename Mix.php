@@ -3,10 +3,10 @@
 namespace Daedelus\Framework;
 
 use Exception;
-use Illuminate\Foundation\MixManifestNotFoundException;
+use Throwable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Throwable;
+use Illuminate\Foundation\MixManifestNotFoundException;
 
 /**
  *

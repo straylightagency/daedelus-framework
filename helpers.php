@@ -1,24 +1,24 @@
 <?php
 
 use App\Models\User;
-use Daedelus\Framework\Cache\WordPressProxyCache;
+use Illuminate\Support\Js;
 use Daedelus\Framework\Mix;
 use Daedelus\Framework\Vite;
-use Daedelus\Support\Filters;
-use Daedelus\Theme\Menus\Menu;
-use Daedelus\Theme\Menus\MenuManager;
-use Daedelus\Theme\ViewMetadata;
-use Daedelus\Theme\ViewOptions;
-use Daedelus\Theme\ViewScanner;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
+use Daedelus\Support\Filters;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Js;
+use Daedelus\Theme\Menus\Menu;
+use Daedelus\Theme\ViewOptions;
+use Daedelus\Theme\ViewScanner;
+use Daedelus\Theme\ViewMetadata;
+use Daedelus\Theme\Menus\MenuManager;
+use Daedelus\Framework\Cache\WordPressProxyCache;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-if ( !function_exists( 'app_url' ) ) {
+if ( ! function_exists( 'app_url' ) ) {
 	/**
-	 * The URL of the app
+	 * The URL of the app.
 	 *
 	 * @param string $path
 	 * @return string
@@ -29,9 +29,9 @@ if ( !function_exists( 'app_url' ) ) {
 	}
 }
 
-if ( !function_exists( 'app_name' ) ) {
+if ( ! function_exists( 'app_name' ) ) {
 	/**
-	 * The URL of the app
+	 * The URL of the app.
 	 *
 	 * @return string
 	 */
@@ -41,9 +41,9 @@ if ( !function_exists( 'app_name' ) ) {
 	}
 }
 
-if ( !function_exists( 'theme_path' ) ) {
+if ( ! function_exists( 'theme_path' ) ) {
 	/**
-	 * The path to the theme directory
+	 * The path to the theme directory.
 	 *
 	 * @param string $path
 	 * @return string
@@ -54,9 +54,9 @@ if ( !function_exists( 'theme_path' ) ) {
 	}
 }
 
-if ( !function_exists( 'theme_url' ) ) {
+if ( ! function_exists( 'theme_url' ) ) {
 	/**
-	 * The url to the theme directory
+	 * The URL to the theme directory.
 	 *
 	 * @param string $url
 	 * @return string
@@ -67,9 +67,9 @@ if ( !function_exists( 'theme_url' ) ) {
 	}
 }
 
-if ( !function_exists( 'content_path' ) ) {
+if ( ! function_exists( 'content_path' ) ) {
 	/**
-	 * The path to the content directory
+	 * The path to the content directory.
 	 *
 	 * @param string $path
 	 * @return string
@@ -80,9 +80,9 @@ if ( !function_exists( 'content_path' ) ) {
 	}
 }
 
-if ( !function_exists( 'public_content_url' ) ) {
+if ( ! function_exists( 'public_content_url' ) ) {
 	/**
-	 * The URL to the content directory
+	 * The URL to the content directory.
 	 *
 	 * @param string $path
 	 * @return string
@@ -93,9 +93,9 @@ if ( !function_exists( 'public_content_url' ) ) {
 	}
 }
 
-if ( !function_exists( 'plugins_path' ) ) {
+if ( ! function_exists( 'plugins_path' ) ) {
 	/**
-	 * The path to plugins
+	 * The path to plugins.
 	 *
 	 * @param string $path
 	 * @return string
@@ -106,9 +106,9 @@ if ( !function_exists( 'plugins_path' ) ) {
 	}
 }
 
-if ( !function_exists( 'mu_plugins_path' ) ) {
+if ( ! function_exists( 'mu_plugins_path' ) ) {
 	/**
-	 * The path to must-use plugins
+	 * The path to must-use plugins.
 	 *
 	 * @param string $path
 	 * @return string
@@ -119,7 +119,7 @@ if ( !function_exists( 'mu_plugins_path' ) ) {
 	}
 }
 
-if ( !function_exists( 'is_debug' ) ) {
+if ( ! function_exists( 'is_debug' ) ) {
 	/**
 	 * If debug mode is enabled
 	 *
@@ -131,9 +131,9 @@ if ( !function_exists( 'is_debug' ) ) {
 	}
 }
 
-if ( !function_exists( 'render' ) ) {
+if ( ! function_exists( 'render' ) ) {
 	/**
-	 * Define the render callback for the template
+	 * Define the render callback for the template.
 	 *
 	 * @param Closure $callback
 	 *
@@ -149,9 +149,9 @@ if ( !function_exists( 'render' ) ) {
 	}
 }
 
-if ( !function_exists('withFields') ) {
+if ( ! function_exists('withFields') ) {
     /**
-     * Define a default render callback for the template that pass the ACF fields to the view
+     * Define a default render callback for the template that pass the ACF fields to the view.
      *
      * @param Closure|null $callback
      * @param string $key
@@ -168,9 +168,9 @@ if ( !function_exists('withFields') ) {
 	}
 }
 
-if ( !function_exists( 'fields' ) ) {
+if ( ! function_exists( 'fields' ) ) {
     /**
-     * Define the fields for the template
+     * Define the fields for the template.
      *
      * @param Closure $callback
      *
@@ -186,9 +186,9 @@ if ( !function_exists( 'fields' ) ) {
     }
 }
 
-if ( !function_exists('withPost') ) {
+if ( ! function_exists('withPost') ) {
 	/**
-	 * Define a default render callback for the template that pass the WP_Post to the view
+	 * Define a default render callback for the template that pass the WP_Post to the view.
 	 *
 	 * @param string $key
 	 *
@@ -200,9 +200,9 @@ if ( !function_exists('withPost') ) {
 	}
 }
 
-if ( !function_exists( 'middleware' ) ) {
+if ( ! function_exists( 'middleware' ) ) {
 	/**
-	 * Define the middleware of the template
+	 * Define the middleware of the template.
 	 *
 	 * @param array $middleware
 	 *
@@ -218,9 +218,9 @@ if ( !function_exists( 'middleware' ) ) {
 	}
 }
 
-if ( !function_exists( 'name' ) ) {
+if ( ! function_exists( 'name' ) ) {
 	/**
-	 * Define the name of the template
+	 * Define the name of the template.
 	 *
 	 * @param string $name
 	 *
@@ -236,9 +236,9 @@ if ( !function_exists( 'name' ) ) {
 	}
 }
 
-if ( !function_exists( 'type' ) ) {
+if ( ! function_exists( 'type' ) ) {
 	/**
-	 * Define the post type for the template
+	 * Define the post type for the template.
 	 *
 	 * @param string $type
 	 *
@@ -254,9 +254,9 @@ if ( !function_exists( 'type' ) ) {
 	}
 }
 
-if ( !function_exists('page_title') ) {
+if ( ! function_exists('page_title') ) {
 	/**
-	 * Define the page title during rendering
+	 * Define the page title during rendering.
 	 *
 	 * @param string $page_title
 	 *
@@ -276,9 +276,9 @@ if ( !function_exists('page_title') ) {
 	}
 }
 
-if ( !function_exists( 'abort_404' ) ) {
+if ( ! function_exists( 'abort_404' ) ) {
 	/**
-	 * Tell WordPress and Laravel to handle a 404
+	 * Tell both WordPress and Laravel to handle a 404.
 	 *
 	 * @return void
 	 */
@@ -291,9 +291,9 @@ if ( !function_exists( 'abort_404' ) ) {
 	}
 }
 
-if ( !function_exists( 'vite' ) ) {
+if ( ! function_exists( 'vite' ) ) {
 	/**
-	 * Process Vite on assets entries
+	 * Process Vite on assets entries.
 	 *
 	 * @param array|string $entries
 	 *
@@ -306,9 +306,9 @@ if ( !function_exists( 'vite' ) ) {
 	}
 }
 
-if ( !function_exists( 'mix' ) ) {
+if ( ! function_exists( 'mix' ) ) {
 	/**
-	 * Process Mix on assets entries
+	 * Process Mix on assets entries.
 	 *
 	 * @param array|string $entries
 	 *
@@ -321,8 +321,10 @@ if ( !function_exists( 'mix' ) ) {
 	}
 }
 
-if ( !function_exists( 'option' ) ) {
+if ( ! function_exists( 'option' ) ) {
 	/**
+     * Get an option field.
+     *
 	 * @param string $field
 	 * @param mixed|null $default
 	 *
@@ -351,8 +353,10 @@ if ( !function_exists( 'option' ) ) {
 	}
 }
 
-if ( !function_exists( 'wp_cache' ) ) {
+if ( ! function_exists( 'wp_cache' ) ) {
 	/**
+     * Return the Proxy Cache.
+     *
 	 * @return WordPressProxyCache
 	 */
 	function wp_cache():WordPressProxyCache
@@ -361,7 +365,7 @@ if ( !function_exists( 'wp_cache' ) ) {
 	}
 }
 
-if ( !function_exists( 'menu' ) ) {
+if ( ! function_exists( 'menu' ) ) {
 	/**
 	 * @param string|null $menu_name
 	 *
@@ -381,8 +385,10 @@ if ( !function_exists( 'menu' ) ) {
 	}
 }
 
-if ( !function_exists( 'get_home_page' ) ) {
+if ( ! function_exists( 'get_home_page' ) ) {
 	/**
+     * Get the home page WP_Post.
+     *
 	 * @param bool $with_fields
 	 * @return WP_Post
 	 */
@@ -398,9 +404,9 @@ if ( !function_exists( 'get_home_page' ) ) {
 	}
 }
 
-if ( !function_exists('get_admin_post_url') ) {
+if ( ! function_exists('get_admin_post_url') ) {
     /**
-     * Return the admin-post.php url
+     * Return the admin-post.php url.
      *
      * @return string
      */
@@ -410,9 +416,9 @@ if ( !function_exists('get_admin_post_url') ) {
     }
 }
 
-if ( !function_exists( 'is_local' ) ) {
+if ( ! function_exists( 'is_local' ) ) {
 	/**
-	 * Return if the app is in local mode or not
+	 * Return if the app is in local mode or not.
 	 *
 	 * @return bool
 	 */
@@ -422,9 +428,9 @@ if ( !function_exists( 'is_local' ) ) {
 	}
 }
 
-if ( !function_exists( 'is_staging' ) ) {
+if ( ! function_exists( 'is_staging' ) ) {
 	/**
-	 * Return if the app is in staging mode or not
+	 * Return if the app is in staging mode or not.
 	 *
 	 * @return bool
 	 */
@@ -434,9 +440,9 @@ if ( !function_exists( 'is_staging' ) ) {
 	}
 }
 
-if ( !function_exists( 'is_production' ) ) {
+if ( ! function_exists( 'is_production' ) ) {
 	/**
-	 * Return if the app is in production mode or not
+	 * Return if the app is in production mode or not.
 	 *
 	 * @return bool
 	 */
@@ -446,9 +452,9 @@ if ( !function_exists( 'is_production' ) ) {
 	}
 }
 
-if ( !function_exists( 'export_routes' ) ) {
+if ( ! function_exists( 'export_routes' ) ) {
 	/**
-	 * Export application routes url by name
+	 * Export application routes url by name.
 	 *
 	 * @param array $which
 	 * @return array
@@ -469,9 +475,9 @@ if ( !function_exists( 'export_routes' ) ) {
 	}
 }
 
-if ( !function_exists('carbon') ) {
+if ( ! function_exists('carbon') ) {
     /**
-     * Create a new Carbon date from string
+     * Create a new Carbon date from string.
      *
      * @param string $date
      * @return Carbon
@@ -482,27 +488,63 @@ if ( !function_exists('carbon') ) {
     }
 }
 
-if ( ! function_exists('carbon_locale') ) {
+if ( ! function_exists('date_locale') ) {
     /**
-     * Format a given DateTime object into the configured app locale
+     * Format a given DateTime object into the configured app locale.
      *
      * @param DateTime $dateTime
-     * @param int $formatter
+     * @param string $format
      * @return string
      */
-    function carbon_locale(DateTime $dateTime, int $formatter = IntlDateFormatter::NONE): string
+    function date_locale(DateTime $dateTime, string $format = 'eeee d LLLL yyyy'): string
     {
-        return ( new IntlDateFormatter(
-            config('app.locale'),
+        $formatter = new IntlDateFormatter(
+            app()->getLocale(),
             IntlDateFormatter::GREGORIAN,
-            $formatter
-        ) )->format( $dateTime );
+            IntlDateFormatter::NONE
+        );
+
+        return tap( $formatter, fn () => $formatter->setPattern( $format ) )->format( $dateTime );
     }
 }
 
-if ( !function_exists('json_from') ) {
+if ( ! function_exists('carbon_locale') ) {
+    /**
+     * Alias to date_locale
+     *
+     * @deprecated
+     * @param DateTime $dateTime
+     * @param string $format
+     * @return string
+     */
+    function carbon_locale(DateTime $dateTime, string $format = 'eeee d LLLL yyyy'): string
+    {
+        return date_locale( $dateTime, $format );
+    }
+}
+
+if ( ! function_exists('use_locale') ) {
+    /**
+     * Change the locale during the execution of the given callback.
+     *
+     * @param string $locale
+     * @param Closure $callback
+     * @return void
+     */
+    function use_locale(string $locale, Closure $callback): void
+    {
+        $current_locale = app()->getLocale();
+        app()->setLocale( $locale );
+
+        $callback();
+
+        app()->setLocale( $current_locale );
+    }
+}
+
+if ( ! function_exists('json_from') ) {
 	/**
-	 * Transform an array or an object into JSON
+	 * Transform an array or an object into JSON.
 	 *
 	 * @param $data
 	 * @return Js
@@ -514,9 +556,9 @@ if ( !function_exists('json_from') ) {
 	}
 }
 
-if ( !function_exists('force_logout') ) {
+if ( ! function_exists('force_logout') ) {
     /**
-     * Force the user to log out
+     * Force the user to log out.
      *
      * @param Request $request
      * @param string $guard
@@ -532,9 +574,9 @@ if ( !function_exists('force_logout') ) {
     }
 }
 
-if ( !function_exists( 'user' ) ) {
+if ( ! function_exists( 'user' ) ) {
     /**
-     * Return the user
+     * Return the user.
      *
      * @param string $guard
      * @return User|null

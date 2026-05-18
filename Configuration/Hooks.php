@@ -22,7 +22,7 @@ class Hooks
 	public static function default():static
 	{
 		return new static( [
-			\Daedelus\Framework\Hooks\SetupApplication::class,
+			\Daedelus\Framework\Hooks\SetupTheme::class,
 			\Daedelus\Framework\Hooks\ConfigMails::class,
 			\Daedelus\Framework\Hooks\CustomizeAdmin::class,
 		] );

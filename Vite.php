@@ -2,9 +2,9 @@
 
 namespace Daedelus\Framework;
 
-use Illuminate\Foundation\ViteException;
-use Illuminate\Support\Arr;
 use Throwable;
+use Illuminate\Support\Arr;
+use Illuminate\Foundation\ViteException;
 
 /**
  */

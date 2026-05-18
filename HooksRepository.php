@@ -2,8 +2,8 @@
 namespace Daedelus\Framework;
 
 use Daedelus\Framework\Hooks\Hook;
-use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Container\BindingResolutionException;
 
 /**
  *

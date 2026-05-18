@@ -1,30 +1,32 @@
 <?php
 namespace Daedelus\Framework\Http;
 
+use Throwable;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
+use Illuminate\Support\Carbon;
 use Daedelus\Support\Actions;
-use Illuminate\Contracts\Container\BindingResolutionException;
-use Daedelus\Framework\Bootstrap\HandleExceptions;
-use Daedelus\Framework\Bootstrap\LoadConfiguration;
+use Daedelus\Support\Filters;
+use Illuminate\Pipeline\Pipeline;
+use Daedelus\Framework\Routing\Router;
+use Illuminate\Support\Facades\Facade;
+use Illuminate\Support\InteractsWithTime;
+use Symfony\Component\HttpFoundation\Response;
+use Daedelus\Framework\Bootstrap\BootWordPress;
+use Illuminate\Support\Facades\Route as Routing;
 use Daedelus\Framework\Bootstrap\RegisterFacades;
 use Illuminate\Foundation\Bootstrap\BootProviders;
-use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
+use Daedelus\Framework\Bootstrap\HandleExceptions;
+use Daedelus\Framework\Bootstrap\LoadConfiguration;
 use Daedelus\Framework\Bootstrap\RegisterProviders;
-use Daedelus\Framework\Bootstrap\BootWordPress;
-use Illuminate\Foundation\Http\Events\RequestHandled;
-use Illuminate\Http\Request;
-use Illuminate\Pipeline\Pipeline;
-use Illuminate\Routing\Route;
-use Illuminate\Routing\Router;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Facade;
-use Illuminate\Support\Facades\Route as Routing;
-use Illuminate\Support\InteractsWithTime;
-use Illuminate\Support\Str;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Throwable;
 use Illuminate\Foundation\Http\Kernel as BaseKernel;
+use Illuminate\Foundation\Http\Events\RequestHandled;
+use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
+use Illuminate\Contracts\Container\BindingResolutionException;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 /**
  *
@@ -79,48 +81,55 @@ class Kernel extends BaseKernel
 
         $this->bootstrap();
 
-        Actions::add('template_redirect', fn () => ob_start() );
         Actions::remove('template_redirect', 'redirect_canonical');
         Actions::remove('shutdown', 'wp_ob_end_flush_all', 1 );
 
-        Actions::add('parse_request', function () use ($request) {
+        Filters::add('do_parse_request', function () use ($request) {
             $this->syncMiddlewareToRouter();
 
-            $wordpressRoute = $this->registerWordPressRoute();
+            $path = Str::finish( $request->getBaseUrl(), $request->getPathInfo() );
+
+            $except = collect( [
+                rest_url(),
+                admin_url(),
+                wp_login_url(),
+                wp_registration_url(),
+            ] )->map( fn ( string $url ) => parse_url( $url, PHP_URL_PATH ) )->unique()->filter();
+
+            $api_url = parse_url( rest_url(), PHP_URL_PATH );
+
+            if ( Str::startsWith( $path, $except->all() ) || Str::endsWith( $path, '.php' ) ||
+                ( Str::startsWith( $path, $api_url ) && redirect_canonical(null, false) ) ) {
+                return true;
+            }
 
             try {
-                $path = Str::finish( $request->getBaseUrl(), $request->getPathInfo() );
+                $route = $this->router->findRoute( $request );
 
-                $except = collect( [
-                    admin_url(),
-                    wp_login_url(),
-                    wp_registration_url(),
-                    rest_url(),
-                ] )->map( fn ( string $url ) => parse_url( $url, PHP_URL_PATH ) )->unique()->filter();
+                $response = $this->handlingRequest( $request, $route );
 
-                $api_url = parse_url( rest_url(), PHP_URL_PATH );
+                $this->sendResponse( $request, $response );
 
-                if (
-                    Str::startsWith( $path, $except->all() ) ||
-                    Str::endsWith( $path, '.php' ) ||
-                    ( Str::startsWith( $path, $api_url ) && redirect_canonical(null, false) ) )
-                {
-                    $matchedRoute = $wordpressRoute->bind( $request );
-                } else {
-                    $matchedRoute = $this->router->findRoute( $request );
-                }
-
-                $response = $this->handlingRequest( $request,
-                    $matchedRoute
-                );
-            }
-            catch ( Throwable $throwable ) {
+                return false;
+            } catch ( NotFoundHttpException | MethodNotAllowedHttpException $e ) {
+                return true;
+            } catch ( Throwable $throwable ) {
                 $this->reportException( $throwable );
 
-                $response = $this->renderException( $request, $throwable );
-            } finally {
-                Actions::add('shutdown', fn () => $this->sendResponse( $request, $response ), 100 );
+                $this->sendResponse( $request,
+                    $this->renderException( $request, $throwable )
+                );
             }
+        } );
+
+        Actions::add('parse_request', function () use ($request) {
+            $this->app->handlingWordPress();
+
+            $route = $this->registerWordPressRoute( $request );
+
+            Actions::add('shutdown', fn () => $this->sendResponse( $request,
+                $this->handlingRequest( $request, $route )
+            ), 100 );
         } );
     }
 
@@ -139,9 +148,8 @@ class Kernel extends BaseKernel
     }
 
     /**
-     * @param $request
-     * @param $response
-     *
+     * @param Request $request
+     * @param Response $response
      * @return void
      * @throws BindingResolutionException
      */
@@ -158,12 +166,21 @@ class Kernel extends BaseKernel
 
     /**
      * Register the default WordPress route.
+     *
+     * @param Request $request
+     * @return Route
      */
-    protected function registerWordPressRoute(): Route
+    protected function registerWordPressRoute(Request $request): Route
     {
-        return Routing::any('{__wordpress?}', fn () => response('') )
-            ->middleware( [ 'web', 'wp' ] )
-            ->where('__wordpress', '.*')
-            ->name('wordpress');
+        return tap( new Route('any', '{__wordpress?}',
+            fn () => Filters::apply('daedelus/render', $request ) ),
+            fn ($route) =>
+            $route->setRouter( $this->router )
+                ->setContainer( $this->app )
+                ->middleware( [ 'web', 'wp' ] )
+                ->where('__wordpress', '.*')
+                ->name('wordpress')
+                ->bind( $request )
+        );
     }
 }
