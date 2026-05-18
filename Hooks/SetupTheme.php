@@ -23,7 +23,7 @@ class SetupTheme extends Hook
             app()->setLocale( Str::before( determine_locale(), '_' ) );
 
             app()->setThemePath( get_theme_file_path() );
-			app()->setThemeUrl( get_theme_file_uri() );
+			app()->setThemeUri( get_theme_file_uri() );
 		} );
 	}
 }
