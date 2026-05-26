@@ -19,16 +19,16 @@ class BridgeDatabase
 	protected Connection $connection;
 
 	/** @var int */
-	protected int $blogid = 0;
+	public int $blogid = 0;
 
 	/** @var string  */
-	protected string $prefix = 'wp_';
+	public string $prefix = 'wp_';
 
 	/** @var string */
-	protected string $base_prefix = '';
+	public string $base_prefix = '';
 
 	/** @var string[] */
-	protected array $incompatible_modes = [
+	public array $incompatible_modes = [
 		'NO_ZERO_DATE',
 		'ONLY_FULL_GROUP_BY',
 		'STRICT_TRANS_TABLES',
@@ -38,7 +38,7 @@ class BridgeDatabase
 	];
 
 	/** @var string[] */
-	protected array $tables = [
+	public array $tables = [
 		'posts',
 		'comments',
 		'links',
@@ -52,13 +52,13 @@ class BridgeDatabase
 	];
 
 	/** @var string[] */
-	protected array $global_tables = [ 'users', 'usermeta' ];
+	public array $global_tables = [ 'users', 'usermeta' ];
 
 	/** @var string[] */
-	protected array $old_tables = [ 'categories', 'post2cat', 'link2cat' ];
+	public array $old_tables = [ 'categories', 'post2cat', 'link2cat' ];
 
 	/** @var string[] */
-	protected array $ms_global_tables = [
+	public array $ms_global_tables = [
 		'blogs',
 		'blogmeta',
 		'signups',
@@ -68,16 +68,16 @@ class BridgeDatabase
 	];
 
 	/** @var string[] */
-	protected array $old_ms_global_tables = [ 'sitecategories' ];
+	public array $old_ms_global_tables = [ 'sitecategories' ];
 
 	/** @var array */
-	protected array $col_meta = [];
+	public array $col_meta = [];
 
 	/** @var array|string[] */
-	protected array $table_charset = [];
+	public array $table_charset = [];
 
     /** @var bool */
-    protected bool $suppressErrors = false;
+    public bool $suppressErrors = false;
 
 	/** @var int */
 	public int $insert_id = 0;

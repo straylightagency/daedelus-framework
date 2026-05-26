@@ -29,16 +29,16 @@ if ( ! function_exists( 'app_url' ) ) {
 	}
 }
 
-if ( ! function_exists( 'app_name' ) ) {
-	/**
-	 * The URL of the app.
-	 *
-	 * @return string
-	 */
-	function app_name():string
-	{
-		return get_bloginfo( 'name' );
-	}
+if ( ! function_exists('app_name') ) {
+    /**
+     * Get the app name from WP options
+     *
+     * @return string
+     */
+    function app_name():string
+    {
+        return get_bloginfo( 'name', 'raw' );
+    }
 }
 
 if ( ! function_exists( 'theme_path' ) ) {
@@ -117,6 +117,32 @@ if ( ! function_exists( 'mu_plugins_path' ) ) {
 	{
 		return app()->muPluginsPath( $path );
 	}
+}
+
+if ( ! function_exists('upload_url') ) {
+    /**
+     * The URL to the upload directory
+     *
+     * @param string $path
+     * @return string
+     */
+    function upload_url(string $path = ''):string
+    {
+        return app_url( UPLOADS ) . ( $path != '' ? '/' . $path : '' );
+    }
+}
+
+if ( ! function_exists('upload_path') ) {
+    /**
+     * The path to the upload directory
+     *
+     * @param string $path
+     * @return string
+     */
+    function upload_path(string $path = ''):string
+    {
+        return app()->uploadPath( $path );
+    }
 }
 
 if ( ! function_exists( 'is_debug' ) ) {
@@ -587,5 +613,75 @@ if ( ! function_exists( 'user' ) ) {
         $user = auth( $guard )->user();
 
         return $user;
+    }
+}
+
+if ( ! function_exists('image_srcset') ) {
+    /**
+     * Return a srcset attribute for image based on array of sizes. Sizes can be excluded using second parameters $except_sizes
+     *
+     * @param array $sizes
+     * @param array $except_sizes
+     * @return string
+     */
+    function image_srcset(array $sizes, array $except_sizes = []): string
+    {
+        $srcset = [];
+
+        foreach ( $sizes as $key => $value ) {
+            if (
+                str_ends_with($key, '-width') ||
+                str_ends_with($key, '-height') ||
+                in_array( $key, $except_sizes )
+            ) {
+                continue;
+            }
+
+            $widthKey = $key . '-width';
+
+            if ( ! isset( $sizes[ $widthKey ] ) ) {
+                continue;
+            }
+
+            $srcset[] = sprintf(
+                '%s %sw',
+                $value,
+                $sizes[ $widthKey ]
+            );
+        }
+
+        usort($srcset, function ($a, $b) {
+            preg_match('/(\d+)w$/', $a, $aMatch );
+            preg_match('/(\d+)w$/', $b, $bMatch );
+
+            return (int) $aMatch[1] <=> (int) $bMatch[1];
+        } );
+
+        return implode(', ', $srcset );
+    }
+}
+
+if ( ! function_exists('attachment_image_sizes') ) {
+    /**
+     * Extract then format the array of sizes from an attachment metadata.
+     *
+     * @param int $attachment_id
+     * @return array
+     */
+    function attachment_image_sizes(int $attachment_id):array
+    {
+        $metadata = wp_get_attachment_metadata( $attachment_id );
+
+        $dir = dirname($metadata['file']);
+
+        $sizes = [];
+
+        foreach ($metadata['sizes'] as $sizeName => $sizeData) {
+            $sizes[ $sizeName ] = upload_url( $dir . '/' . $sizeData['file'] );
+            $sizes[ $sizeName . '-width' ] = $sizeData['width'];
+            $sizes[ $sizeName . '-height' ] = $sizeData['height'];
+        }
+
+        return $sizes;
     }
 }
