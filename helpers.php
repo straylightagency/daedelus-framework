@@ -657,7 +657,7 @@ if ( ! function_exists('image_srcset') ) {
             return (int) $aMatch[1] <=> (int) $bMatch[1];
         } );
 
-        return implode(', ', $srcset );
+        return implode(', ', array_unique( $srcset ) );
     }
 }
 
