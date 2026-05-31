@@ -173,7 +173,7 @@ class Kernel extends BaseKernel
     protected function registerWordPressRoute(Request $request): Route
     {
         return tap( new Route('any', '{__wordpress?}',
-            fn () => Filters::apply('daedelus/render', $request ) ),
+            fn () => Filters::apply('daedelus/render', '' ) ),
             fn ($route) =>
             $route->setRouter( $this->router )
                 ->setContainer( $this->app )
