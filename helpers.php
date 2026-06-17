@@ -688,3 +688,41 @@ if ( ! function_exists('attachment_image_sizes') ) {
         return $sizes;
     }
 }
+
+if ( ! function_exists('get_page_type') ) {
+    /**
+     * Return the current page type from WordPress
+     *
+     * @return string
+     */
+    function get_page_type(): string
+    {
+        $methods = [
+            'is_embed'             => 'embed',
+            'is_404'               => '404',
+            'is_search'            => 'search',
+            'is_front_page'        => 'front_page',
+            'is_home'              => 'home',
+            'is_privacy_policy'    => 'privacy_policy',
+            'is_post_type_archive' => 'post_type_archive',
+            'is_tax'               => 'tax',
+            'is_attachment'        => 'attachment',
+            'is_single'            => 'single',
+            'is_page'              => 'page',
+            'is_singular'          => 'singular',
+            'is_category'          => 'category',
+            'is_tag'               => 'tag',
+            'is_author'            => 'author',
+            'is_date'              => 'date',
+            'is_archive'           => 'archive',
+        ];
+
+        foreach ( $methods as $function => $tag ) {
+            if ( call_user_func( $function ) ) {
+                return $tag;
+            }
+        }
+
+        return 'undefined';
+    }
+}
